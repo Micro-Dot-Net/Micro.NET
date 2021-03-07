@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Micro.Net.Host": {
+      "commandName": "Project"
+    }
+  }
+}

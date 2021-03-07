@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Micro.Net.Abstractions\Micro.Net.Abstractions.csproj" />
+    <ProjectReference Include="..\Micro.Net.Example.Contract\Micro.Net.Example.Contract.csproj" />
+    <ProjectReference Include="..\Micro.Net.Example.Services\Micro.Net.Example.Services.csproj" />
+  </ItemGroup>
+
+</Project>
