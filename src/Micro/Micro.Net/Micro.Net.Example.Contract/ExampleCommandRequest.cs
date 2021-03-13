@@ -1,4 +1,5 @@
 ﻿using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Messages;
 
 namespace Micro.Net.Example.Contract
 {

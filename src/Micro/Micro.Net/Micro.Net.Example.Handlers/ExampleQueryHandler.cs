@@ -24,17 +24,4 @@ namespace Micro.Net.Example.Handlers
             return response;
         }
     }
-
-    public class ExampleMicroserviceConfigurer : IMicroserviceConfigurer
-    {
-        public void ConfigureMicroservice(IMicroserviceConfigurable config)
-        {
-            config.ConfigureReceivers(r => { })
-                .ConfigureDispatchers(d => { })
-                .ConfigureHandlers(h => 
-                    h.UseHandler<ExampleQueryHandler, ExampleQueryRequest, ExampleQueryResponse>()
-                        .UseHandler<ExampleCommandHandler, ExampleCommandRequest>()
-                    );
-        }
-    }
 }

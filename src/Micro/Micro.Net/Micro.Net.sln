@@ -3,19 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host", "Micro.Net.Host\Micro.Net.Host.csproj", "{F53BADBE-94C8-40EF-A19E-84D473B8F5B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host", "Micro.Net.Host\Micro.Net.Host.csproj", "{F53BADBE-94C8-40EF-A19E-84D473B8F5B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Http", "Micro.Net.Host.Http\Micro.Net.Host.Http.csproj", "{30CF8725-3573-408C-A3EB-F3E238D00973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.Http", "Micro.Net.Host.Http\Micro.Net.Host.Http.csproj", "{30CF8725-3573-408C-A3EB-F3E238D00973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Abstractions", "Micro.Net.Abstractions\Micro.Net.Abstractions.csproj", "{5042938C-05B2-48EE-8BCB-769FE50A93D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Abstractions", "Micro.Net.Abstractions\Micro.Net.Abstractions.csproj", "{5042938C-05B2-48EE-8BCB-769FE50A93D2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{EF1867D0-EF0E-4DD6-8573-23D7BB613C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Example.Handlers", "Micro.Net.Example.Handlers\Micro.Net.Example.Handlers.csproj", "{44B1BC8F-0C23-499F-998C-71577A69DF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Example.Handlers", "Micro.Net.Example.Handlers\Micro.Net.Example.Handlers.csproj", "{44B1BC8F-0C23-499F-998C-71577A69DF35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Example.Contract", "Micro.Net.Example.Contract\Micro.Net.Example.Contract.csproj", "{1208F092-C883-4E1A-9617-0C75AA1A11D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Example.Contract", "Micro.Net.Example.Contract\Micro.Net.Example.Contract.csproj", "{1208F092-C883-4E1A-9617-0C75AA1A11D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Example.Services", "Micro.Net.Example.Services\Micro.Net.Example.Services.csproj", "{4CA59606-D05F-4CF8-B884-1A6D64F45E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Example.Services", "Micro.Net.Example.Services\Micro.Net.Example.Services.csproj", "{4CA59606-D05F-4CF8-B884-1A6D64F45E07}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Extensions", "Micro.Net.Extensions\Micro.Net.Extensions.csproj", "{32BB74E4-EAD4-4135-B97E-F68C3E077577}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.MassTransit", "Micro.Net.Host.MassTransit\Micro.Net.Host.MassTransit.csproj", "{C841ACCB-6E88-409B-B485-E7C4CAF99151}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transports", "Transports", "{71ED1238-F081-46F9-BA20-9AB5C5CAFB07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Udp", "Micro.Net.Host.Udp\Micro.Net.Host.Udp.csproj", "{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discovery", "Discovery", "{EC178D64-6CB1-4108-9BE9-4D019B35A230}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Udp.Client", "Micro.Net.Host.Discovery.Udp.Client\Micro.Net.Host.Discovery.Udp.Client.csproj", "{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Udp.Server", "Micro.Net.Host.Discovery.Udp.Server\Micro.Net.Host.Discovery.Udp.Server.csproj", "{C041AA47-56BF-45F7-96F1-AB1C52692A94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Abstractions", "Micro.Net.Host.Discovery.Abstractions\Micro.Net.Host.Discovery.Abstractions.csproj", "{62B7CD5F-5ADF-440D-B332-CDF470A64239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Configuration", "Micro.Net.Host.Discovery.Configuration\Micro.Net.Host.Discovery.Configuration.csproj", "{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,14 +65,49 @@ Global
 		{4CA59606-D05F-4CF8-B884-1A6D64F45E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CA59606-D05F-4CF8-B884-1A6D64F45E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CA59606-D05F-4CF8-B884-1A6D64F45E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BB74E4-EAD4-4135-B97E-F68C3E077577}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BB74E4-EAD4-4135-B97E-F68C3E077577}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BB74E4-EAD4-4135-B97E-F68C3E077577}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BB74E4-EAD4-4135-B97E-F68C3E077577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C841ACCB-6E88-409B-B485-E7C4CAF99151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C841ACCB-6E88-409B-B485-E7C4CAF99151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C841ACCB-6E88-409B-B485-E7C4CAF99151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C841ACCB-6E88-409B-B485-E7C4CAF99151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C041AA47-56BF-45F7-96F1-AB1C52692A94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C041AA47-56BF-45F7-96F1-AB1C52692A94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C041AA47-56BF-45F7-96F1-AB1C52692A94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C041AA47-56BF-45F7-96F1-AB1C52692A94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62B7CD5F-5ADF-440D-B332-CDF470A64239}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B7CD5F-5ADF-440D-B332-CDF470A64239}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B7CD5F-5ADF-440D-B332-CDF470A64239}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B7CD5F-5ADF-440D-B332-CDF470A64239}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{30CF8725-3573-408C-A3EB-F3E238D00973} = {71ED1238-F081-46F9-BA20-9AB5C5CAFB07}
 		{44B1BC8F-0C23-499F-998C-71577A69DF35} = {EF1867D0-EF0E-4DD6-8573-23D7BB613C31}
 		{1208F092-C883-4E1A-9617-0C75AA1A11D1} = {EF1867D0-EF0E-4DD6-8573-23D7BB613C31}
 		{4CA59606-D05F-4CF8-B884-1A6D64F45E07} = {EF1867D0-EF0E-4DD6-8573-23D7BB613C31}
+		{C841ACCB-6E88-409B-B485-E7C4CAF99151} = {71ED1238-F081-46F9-BA20-9AB5C5CAFB07}
+		{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A} = {71ED1238-F081-46F9-BA20-9AB5C5CAFB07}
+		{7F0692BC-CDBA-461F-B25E-A92F92FB0F18} = {EC178D64-6CB1-4108-9BE9-4D019B35A230}
+		{C041AA47-56BF-45F7-96F1-AB1C52692A94} = {EC178D64-6CB1-4108-9BE9-4D019B35A230}
+		{62B7CD5F-5ADF-440D-B332-CDF470A64239} = {EC178D64-6CB1-4108-9BE9-4D019B35A230}
+		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6} = {EC178D64-6CB1-4108-9BE9-4D019B35A230}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2AF5291A-9052-4A97-967A-E96DEF32F5FF}
