@@ -1,6 +1,7 @@
 ﻿using Micro.Net.Abstractions;
 using Micro.Net.Abstractions.Configuration;
 using Micro.Net.Example.Contract;
+using Micro.Net.Host.Discovery.Configuration;
 using Micro.Net.Host.Http;
 
 namespace Micro.Net.Example.Handlers
@@ -14,7 +15,8 @@ namespace Micro.Net.Example.Handlers
                 .ConfigureHandlers(h => 
                     h.UseHandler<ExampleQueryHandler, ExampleQueryRequest, ExampleQueryResponse>()
                         .UseHandler<ExampleCommandHandler, ExampleCommandRequest>()
-                );
+                )
+                .UseDiscovery<ConfigurationDiscovery>(d => d.FromSection("services"));
         }
     }
 }

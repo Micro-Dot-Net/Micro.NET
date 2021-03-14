@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions.Discovery;
 using Microsoft.Extensions.Options;
@@ -14,18 +18,18 @@ namespace Micro.Net.Host.Discovery.Configuration
             _opts = opts;
         }
 
-        public Task Initialize()
+        public Task Initialize(CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
 
-        public async Task Start()
+        public async Task Start(CancellationToken cancellationToken)
         {
             _opts.OnChange(OnChange);
             OnChange(_opts.CurrentValue);
         }
 
-        public Task Stop()
+        public Task Stop(CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
@@ -37,9 +41,17 @@ namespace Micro.Net.Host.Discovery.Configuration
         {
             lock (_lock)
             {
-                foreach (ServiceEntry service in opts.Services)
+                IEnumerable<ServiceEntry> discovered = opts.Services.Except(CurrentOptions.Services, ServiceEntryEqualityComparer.Default);
+                IEnumerable<ServiceEntry> lost = CurrentOptions.Services.Except(opts.Services, ServiceEntryEqualityComparer.Default);
+
+                foreach (ServiceEntry service in discovered)
                 {
-                    
+                    ServiceDiscovered?.Invoke(service.Address, service.Contract, service.Assembly);
+                }
+
+                foreach (ServiceEntry service in lost)
+                {
+                    ServiceLost?.Invoke(service.Address, service.Contract, service.Assembly);
                 }
 
                 CurrentOptions = opts;

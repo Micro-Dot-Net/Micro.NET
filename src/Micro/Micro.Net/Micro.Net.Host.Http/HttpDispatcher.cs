@@ -7,7 +7,7 @@ namespace Micro.Net.Host.Http
 {
     public class HttpDispatcher : IDispatcherConfiguration
     {
-        public void UseOptions()
+        public HttpDispatcher UseOptions(string name)
         {
 
         }
@@ -29,16 +29,6 @@ namespace Micro.Net.Host.Http
     }
 
     public class RemoteEndpointOptions
-    {
-
-    }
-
-    public class RemoteDispatcherEndpointOptions : RemoteEndpointOptions
-    {
-
-    }
-
-    public class RemoteReceiverEndpointOptions : RemoteEndpointOptions
     {
 
     }

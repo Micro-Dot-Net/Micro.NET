@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Messages;
 using Micro.Net.Example.Contract;
 using Micro.Net.Example.Services;
 

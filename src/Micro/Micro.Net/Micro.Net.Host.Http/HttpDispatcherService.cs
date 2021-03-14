@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
 using Micro.Net.Abstractions.Messages.Dispatch;
@@ -13,22 +14,22 @@ namespace Micro.Net.Host.Http
     public class HttpDispatcherService : DispatcherService
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly DispatchOptionFactory _optionFactory;
+        private readonly IFactory<DispatchOptions> _optionFactory;
         private readonly ILogger<HttpDispatcherService> _logger;
 
-        public HttpDispatcherService(IHttpClientFactory clientFactory, DispatchOptionFactory optionFactory, ILogger<HttpDispatcherService> logger)
+        public HttpDispatcherService(IHttpClientFactory clientFactory, IFactory<DispatchOptions> optionFactory, ILogger<HttpDispatcherService> logger)
         {
             _clientFactory = clientFactory;
             _optionFactory = optionFactory;
             _logger = logger;
         }
 
-        private IDictionary<(Type requestType, Type responseType), (Uri uri, string path, HttpMethod verb, RemoteReceiverEndpointOptions opts)> _mappings 
-            = new Dictionary<(Type requestType, Type responseType), (Uri uri, string path, HttpMethod verb, RemoteReceiverEndpointOptions opts)>();
+        private IDictionary<(Type requestType, Type responseType), (Uri uri, string path, HttpMethod verb, RemoteEndpointOptions opts)> _mappings 
+            = new Dictionary<(Type requestType, Type responseType), (Uri uri, string path, HttpMethod verb, RemoteEndpointOptions opts)>();
 
         public async Task<TResponse> Dispatch<TRequest, TResponse>(TRequest message, Action<DispatchOptions> opts)
         {
-            (Uri uri, string path, HttpMethod verb, RemoteReceiverEndpointOptions remoteOpts) = _mappings[(typeof(TRequest), typeof(TResponse))];
+            (Uri uri, string path, HttpMethod verb, RemoteEndpointOptions remoteOpts) = _mappings[(typeof(TRequest), typeof(TResponse))];
 
             DispatchOptions options = _optionFactory.Create();
 
@@ -111,6 +112,21 @@ namespace Micro.Net.Host.Http
         public bool CanHandle<TMessage>()
         {
             return CanHandle<TMessage, ValueTuple>();
+        }
+
+        public async Task Initialize(CancellationToken cancellationToken)
+        {
+            
+        }
+
+        public async Task Start(CancellationToken cancellationToken)
+        {
+            
+        }
+
+        public async Task Stop(CancellationToken cancellationToken)
+        {
+            
         }
     }
 }
