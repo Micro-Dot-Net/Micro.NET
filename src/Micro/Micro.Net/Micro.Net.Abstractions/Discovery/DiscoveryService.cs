@@ -17,11 +17,4 @@ namespace Micro.Net.Abstractions.Discovery
         void Announce();
         void Goodbye();
     }
-
-    public delegate void ServiceEventDelegate(Uri serviceAddress, string contractName, string assemblyName);
-
-    public interface IDiscovery
-    {
-
-    }
 }

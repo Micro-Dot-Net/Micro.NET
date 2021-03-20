@@ -14,4 +14,10 @@ namespace Micro.Net.Abstractions
     {
         TImpl Create(TOpts options);
     }
+
+    public interface IDirectory<T1, T2>
+    {
+        public IReadOnlyDictionary<T1, T2> Forward { get; }
+        public IReadOnlyDictionary<T2, T1> Reverse { get; }
+    }
 }

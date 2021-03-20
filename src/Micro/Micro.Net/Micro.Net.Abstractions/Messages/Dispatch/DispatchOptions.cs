@@ -3,5 +3,6 @@
     public class DispatchOptions
     {
         public bool ThrowOnFailure { get; set; } = true;
+        
     }
 }

@@ -10,5 +10,6 @@
         public abstract class Storage : ComponentKind {}
         public abstract class Cache : ComponentKind {}
         public abstract class Discovery : ComponentKind {}
+        public abstract class Container : ComponentKind {}
     }
 }

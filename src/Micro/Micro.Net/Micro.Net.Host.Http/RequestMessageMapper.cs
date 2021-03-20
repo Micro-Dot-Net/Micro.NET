@@ -20,4 +20,6 @@ namespace Micro.Net.Host.Http
         public static RequestMessageMapper FromQuery => new RequestMessageMapper();
         public static RequestMessageMapper FromBody => new RequestMessageMapper();
     }
+    
+    
 }

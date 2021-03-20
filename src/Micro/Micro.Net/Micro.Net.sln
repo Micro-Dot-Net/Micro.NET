@@ -23,17 +23,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.MassTransit"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transports", "Transports", "{71ED1238-F081-46F9-BA20-9AB5C5CAFB07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Udp", "Micro.Net.Host.Udp\Micro.Net.Host.Udp.csproj", "{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.Udp", "Micro.Net.Host.Udp\Micro.Net.Host.Udp.csproj", "{B22AF6EA-C397-4B22-AAF8-D4FFB8F9AE1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discovery", "Discovery", "{EC178D64-6CB1-4108-9BE9-4D019B35A230}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Udp.Client", "Micro.Net.Host.Discovery.Udp.Client\Micro.Net.Host.Discovery.Udp.Client.csproj", "{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.Discovery.Udp.Client", "Micro.Net.Host.Discovery.Udp.Client\Micro.Net.Host.Discovery.Udp.Client.csproj", "{7F0692BC-CDBA-461F-B25E-A92F92FB0F18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Udp.Server", "Micro.Net.Host.Discovery.Udp.Server\Micro.Net.Host.Discovery.Udp.Server.csproj", "{C041AA47-56BF-45F7-96F1-AB1C52692A94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.Discovery.Udp.Server", "Micro.Net.Host.Discovery.Udp.Server\Micro.Net.Host.Discovery.Udp.Server.csproj", "{C041AA47-56BF-45F7-96F1-AB1C52692A94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Abstractions", "Micro.Net.Host.Discovery.Abstractions\Micro.Net.Host.Discovery.Abstractions.csproj", "{62B7CD5F-5ADF-440D-B332-CDF470A64239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.Discovery.Abstractions", "Micro.Net.Host.Discovery.Abstractions\Micro.Net.Host.Discovery.Abstractions.csproj", "{62B7CD5F-5ADF-440D-B332-CDF470A64239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Host.Discovery.Configuration", "Micro.Net.Host.Discovery.Configuration\Micro.Net.Host.Discovery.Configuration.csproj", "{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host.Discovery.Configuration", "Micro.Net.Host.Discovery.Configuration\Micro.Net.Host.Discovery.Configuration.csproj", "{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Configuration", "Micro.Net.Configuration\Micro.Net.Configuration.csproj", "{C93ECE30-1FC6-41C9-8E22-64D75A7EECEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Control.Contract", "Micro.Net.Control.Contract\Micro.Net.Control.Contract.csproj", "{D1FC6FA2-54CE-4C9E-9D9D-504AE7500CAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Processing", "Micro.Net.Processing\Micro.Net.Processing.csproj", "{2993B0FA-EE4C-4E01-AD33-F1E5EBB5B96B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +99,18 @@ Global
 		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D4B0EFE-D36A-4816-B1DB-895D5E2AE3E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93ECE30-1FC6-41C9-8E22-64D75A7EECEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93ECE30-1FC6-41C9-8E22-64D75A7EECEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93ECE30-1FC6-41C9-8E22-64D75A7EECEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93ECE30-1FC6-41C9-8E22-64D75A7EECEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1FC6FA2-54CE-4C9E-9D9D-504AE7500CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1FC6FA2-54CE-4C9E-9D9D-504AE7500CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1FC6FA2-54CE-4C9E-9D9D-504AE7500CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1FC6FA2-54CE-4C9E-9D9D-504AE7500CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2993B0FA-EE4C-4E01-AD33-F1E5EBB5B96B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2993B0FA-EE4C-4E01-AD33-F1E5EBB5B96B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2993B0FA-EE4C-4E01-AD33-F1E5EBB5B96B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2993B0FA-EE4C-4E01-AD33-F1E5EBB5B96B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

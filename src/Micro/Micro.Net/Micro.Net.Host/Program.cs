@@ -1,4 +1,8 @@
-﻿using Fclp;
+﻿using System;
+using System.Reflection;
+using Fclp;
+using Micro.Net.Abstractions.Configuration;
+using Micro.Net.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -37,7 +41,23 @@ namespace Micro.Net.Host
                         .AddHostedService<MicroHost>()
                         .AddSingleton<MicroHostArguments>(hostArgs);
 
+                    IMicroserviceConfigurer configurer = (IMicroserviceConfigurer)Activator.CreateInstanceFrom(hostArgs.TargetAssembly, hostArgs.ConfigurationClass)?.Unwrap();
 
+                    if (configurer == null)
+                    {
+                        throw new ArgumentException();
+                    }
+
+                    HostedMicroserviceConfigurable configurable = new HostedMicroserviceConfigurable();
+
+                    configurer.ConfigureMicroservice(configurable);
+
+                    configurable.ConfigureContainer(services, hostContext.Configuration);
+
+                    services.Scan(scan => 
+                        scan.FromApplicationDependencies()
+                            
+                        );
                 });
     }
 }

@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Micro.Net.Host": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "remoteDebugEnabled": false
     }
   }
 }

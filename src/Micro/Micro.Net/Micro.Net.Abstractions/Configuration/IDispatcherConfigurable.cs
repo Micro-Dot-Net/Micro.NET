@@ -5,6 +5,6 @@ namespace Micro.Net.Abstractions.Configuration
 {
     public interface IDispatcherConfigurable
     {
-        IDispatcherConfigurable Configure<TDispatcher>(Action<TDispatcher> config) where TDispatcher : DispatcherService;
+        IDispatcherConfigurable Configure<TDispatcher>(Action<TDispatcher> config) where TDispatcher : IDispatcherConfiguration;
     }
 }

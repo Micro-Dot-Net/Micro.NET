@@ -6,6 +6,7 @@ namespace Micro.Net.Abstractions.Lifecycle
     {
         public abstract class PlatformInitialize : LifeCycleStep { }
         public abstract class PlatformShutdown : LifeCycleStep { }
+        public abstract class PlatformRun : LifeCycleStep { }
         public abstract class ContainerInitialize : LifeCycleStep { }
         public abstract class ComponentsInitialize : LifeCycleStep { }
         public abstract class ComponentsShutdown : LifeCycleStep { }
