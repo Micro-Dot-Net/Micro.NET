@@ -8,8 +8,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Exceptions;
 using Micro.Net.Abstractions.Messages;
 using Micro.Net.Abstractions.Messages.Receive;
+using Micro.Net.Abstractions.Processing;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,11 +22,13 @@ namespace Micro.Net.Host.Http
     {
         private readonly HttpReceiverOptions _opts;
         private readonly HttpListener _listener;
+        private readonly IPipelineHead<HttpReceiveContext> _pipeHead;
 
-        public HttpReceiverService(HttpReceiverOptions opts, HttpListener listener)
+        public HttpReceiverService(HttpReceiverOptions opts, HttpListener listener, IPipelineHead<HttpReceiveContext> pipeHead)
         {
             _opts = opts;
             _listener = listener;
+            _pipeHead = pipeHead;
         }
 
         public async Task Initialize(CancellationToken cancellationToken)
@@ -53,86 +57,90 @@ namespace Micro.Net.Host.Http
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                HttpListenerContext context = await _listener.GetContextAsync();
+                HttpListenerContext contextTask = await _listener.GetContextAsync();
 
-                TaskCompletionSource<TransportMessage> completion =
-                    new TaskCompletionSource<TransportMessage>(TaskCreationOptions.LongRunning);
-
-                TransportMessage message = synthesizeMessage(context.Request);
-
-                TransportEnvelope envelope = new TransportEnvelope(completion) {Message = message};
-
-                Task.Run(() => Wait(context, completion.Task));
-
-                OnReceive?.Invoke(envelope);
-            }
-        }
-
-        private TransportMessage synthesizeMessage(HttpListenerRequest request)
-        {
-            TransportMessage message = new TransportMessage(){ Headers = new Dictionary<string, string>() };
-
-            foreach (string key in request.Headers.AllKeys)
-            {
-                message.Headers[key] = request.Headers[key];
-            }
-
-            if (!request.HasEntityBody)
-            {
-                var dict = HttpUtility.ParseQueryString(request.QueryString?.ToString() ?? string.Empty);
-                JObject json = JObject.FromObject(dict.Cast<string>().ToDictionary(k => k, v => dict[v]));
-
-                message.Body = json;
-            }
-            else
-            {
-                JObject json;
-
-                using (StreamReader reader = new StreamReader(request.InputStream, request.ContentEncoding))
+                Task.Run(async () =>
                 {
-                    json = JObject.Parse(reader.ReadToEnd());
-                }
+                    HttpListenerContext listenerContext = contextTask;
+                    
+                    HttpReceiveContext context = new HttpReceiveContext();
 
-                message.Body = json;
-            }
+                    foreach (string key in listenerContext.Request.Headers.AllKeys)
+                    {
+                        context.HttpRequest.Headers[key] = listenerContext.Request.Headers[key];
+                    }
 
-            message.Origin = request.Url;
+                    if (!listenerContext.Request.HasEntityBody)
+                    {
+                        var dict = HttpUtility.ParseQueryString(listenerContext.Request.QueryString?.ToString() ?? string.Empty);
+                        JObject json = JObject.FromObject(dict.Cast<string>().ToDictionary(k => k, v => dict[v]));
 
-            return message;
-        }
+                        context.HttpRequest.Body = json;
+                    }
+                    else
+                    {
+                        JObject json;
 
-        private async Task Wait(HttpListenerContext context, Task<TransportMessage> replyTask)
-        {
-            try
-            {
-                TransportMessage reply = await replyTask;
+                        using (StreamReader reader = new StreamReader(listenerContext.Request.InputStream, listenerContext.Request.ContentEncoding))
+                        {
+                            json = JObject.Parse(reader.ReadToEnd());
+                        }
 
-                context.Response.StatusCode = reply.Body.HasValues ? 200 : 204;
-                context.Response.StatusDescription = reply.Body.HasValues ? "OK" : "No Content";
+                        context.HttpRequest.Body = json;
+                    }
 
-                foreach(KeyValuePair<string, string> header in reply.Headers)
-                {
-                    context.Response.Headers.Add(header.Key, header.Value);
-                }
+                    context.HttpRequest.Origin = listenerContext.Request.Url;
 
-                context.Response.Close(context.Request.ContentEncoding.GetBytes(reply.Body.ToString(Formatting.None)),true);
-            }
-            catch (AggregateException ex)
-            {
-                context.Response.StatusCode = 500;
-                context.Response.StatusDescription = "Internal Server Error";
+                    try
+                    {
+                        await _pipeHead.Execute(context);
 
-                //Serialize error?
-            }
-            catch (TaskCanceledException)
-            {
-                context.Response.StatusCode = 444;
-                context.Response.StatusDescription = "No Response";
+                        listenerContext.Response.StatusCode = context.HttpResponse.Body.HasValues ? 200 : 204;
+                        listenerContext.Response.StatusDescription =
+                            context.HttpResponse.Body.HasValues ? "OK" : "No Content";
 
-                using (StreamWriter writer = new StreamWriter(context.Response.OutputStream){AutoFlush = true})
-                {
-                    await writer.WriteLineAsync("Task cancelled!");
-                }
+                        foreach (KeyValuePair<string, string> header in context.HttpResponse.Headers)
+                        {
+                            listenerContext.Response.Headers.Add(header.Key, header.Value);
+                        }
+
+                        listenerContext.Response.Close(
+                            listenerContext.Request.ContentEncoding.GetBytes(
+                                context.HttpResponse.Body.ToString(Formatting.None)),
+                            true);
+                    }
+                    catch (MicroTransportException ex)
+                    {
+                        listenerContext.Response.StatusCode = 404;
+                        listenerContext.Response.StatusDescription = "Not Found";
+                        
+                        listenerContext.Response.Close();
+                    }
+                    catch (AggregateException ex)
+                    {
+                        listenerContext.Response.StatusCode = 500;
+                        listenerContext.Response.StatusDescription = "Internal Server Error";
+                        
+                        JObject exObj = JObject.FromObject(ex);
+
+                        #if DEBUG
+                        listenerContext.Response.Close(
+                            listenerContext.Request.ContentEncoding.GetBytes(exObj.ToString(Formatting.Indented)), 
+                            true);
+                        #else
+                        listenerContext.Response.Close();
+                        #endif
+
+                        //Serialize error?
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        listenerContext.Response.StatusCode = 444;
+                        listenerContext.Response.StatusDescription = "Task cancelled";
+                        
+                        listenerContext.Response.Close();
+                    }
+                });
             }
         }
 
@@ -140,7 +148,5 @@ namespace Micro.Net.Host.Http
         {
             _listener.Stop();
         }
-
-        public event Action<TransportEnvelope> OnReceive;
     }
 }

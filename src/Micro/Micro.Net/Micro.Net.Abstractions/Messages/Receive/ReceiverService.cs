@@ -5,6 +5,6 @@ namespace Micro.Net.Abstractions.Messages.Receive
 {
     public interface ReceiverService : IComponent<ComponentKind.Transport.Receive>
     {
-        event Action<TransportEnvelope> OnReceive;
+        
     }
 }
