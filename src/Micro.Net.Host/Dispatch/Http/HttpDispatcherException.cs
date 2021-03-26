@@ -1,6 +1,7 @@
 ﻿using System;
+using Micro.Net.Exceptions;
 
-namespace Micro.Net.Host.Dispatch.Http
+namespace Micro.Net.Dispatch.Http
 {
     public class HttpDispatcherException : MicroDispatcherException
     {

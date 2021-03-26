@@ -1,6 +1,7 @@
 using System;
+using Micro.Net.Abstractions;
 
-namespace Micro.Net
+namespace Micro.Net.Test
 {
     public class TestRequest : IContract<TestResponse>
     {

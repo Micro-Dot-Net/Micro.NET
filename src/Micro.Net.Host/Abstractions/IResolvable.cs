@@ -1,4 +1,4 @@
-namespace Micro.Net
+namespace Micro.Net.Abstractions
 {
     public interface IResolvable
     {

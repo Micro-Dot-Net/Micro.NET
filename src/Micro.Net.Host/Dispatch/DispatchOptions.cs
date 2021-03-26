@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace Micro.Net.Host.Dispatch
+namespace Micro.Net.Dispatch
 {
     public class DispatchOptions
     {
-        public bool ThrowOnFailure { get; internal set; }
+        public bool ThrowOnFailure { get; set; }
         internal ICollection<(string, string)> Headers { get; private set; }
+        public DispatchMode DispatchMode { get; set; }
+        public DispatchFlags DispatchFlags { get; set; }
+
 
         public void AddHeader(string key, string value)
         {
@@ -22,5 +26,23 @@ namespace Micro.Net.Host.Dispatch
 
             return opts;
         }
+    }
+
+    public enum DispatchMode
+    {
+        None,
+        PreferAsync,
+        PreferSync,
+        PreferOutbox,
+        RequireAsync,
+        RequireSync,
+        RequireOutbox
+    }
+
+    [Flags]
+    public enum DispatchFlags
+    {
+        FireAndForget = 1,
+        PrecheckOutbox = 2
     }
 }

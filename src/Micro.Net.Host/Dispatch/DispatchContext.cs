@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using MediatR;
+using Micro.Net.Abstractions;
+using Micro.Net.Receive;
 
-namespace Micro.Net.Host.Dispatch
+namespace Micro.Net.Dispatch
 {
     public class DispatchContext<TRequest,TResponse> : ContextBase, IRequest where TRequest : IContract<TResponse>
     {

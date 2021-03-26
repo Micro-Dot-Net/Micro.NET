@@ -2,52 +2,18 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
-using Micro.Net.Host.Abstractions;
-using Micro.Net.Host.Abstractions.Sagas;
+using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Sagas;
+using Micro.Net.Exceptions;
+using Micro.Net.Receive;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Micro.Net
+namespace Micro.Net.Sagas
 {
-    public class HandlerShell<TMessage> : IRequestHandler<ReceiveContext<TMessage, ValueTuple>> where TMessage : IContract
+    public static class SagaShell
     {
-        private readonly IServiceProvider _provider;
-
-
-        public HandlerShell(IServiceProvider provider)
+        internal static async Task HandleSaga<TSagaMessage>(ReceiveContext<TSagaMessage, ValueTuple> request, IServiceProvider provider, CancellationToken cancellationToken) where TSagaMessage : ISagaContract
         {
-            _provider = provider;
-        }
-
-        public async Task<Unit> Handle(ReceiveContext<TMessage, ValueTuple> request, CancellationToken cancellationToken)
-        {
-            IHandle<TMessage> svc = _provider.GetService<IHandle<TMessage>>();
-
-            if (request.Request.Payload is ISagaContract)
-            {
-                await (Task)this.GetType().GetMethod(nameof(HandleSaga), BindingFlags.Static | BindingFlags.NonPublic)
-                    .MakeGenericMethod(typeof(TMessage))
-                    .Invoke(null, new object[] {request, _provider, cancellationToken});
-            }
-            else
-            {
-                HandlerContext context = new HandlerContext(_provider.GetService<IMediator>());
-
-                await svc.Handle(request.Request.Payload, context);
-
-                request.Response.Payload = new ValueTuple();
-            }
-
-            return Unit.Value;
-        }
-
-        private static async Task HandleSaga<TSagaMessage>(ReceiveContext<TSagaMessage, ValueTuple> request, IServiceProvider provider, CancellationToken cancellationToken) where TSagaMessage : ISagaContract
-        {
-            SagaContext context = new SagaContext();
-
-            Type startHandlerType = typeof(ISagaStartHandler<TSagaMessage>).MakeGenericType(typeof(TSagaMessage));
-            Type stepHandlerType = typeof(ISagaStepHandler<>).MakeGenericType(typeof(TSagaMessage));
-
             ISagaStepHandler<TSagaMessage> _svc = provider.GetService<ISagaStepHandler<TSagaMessage>>();
 
             if (_svc == null)
@@ -68,11 +34,11 @@ namespace Micro.Net
             Type sagaDataType = svcType.GetGenericArguments()[0];
 
             await (Task)MethodBase.GetCurrentMethod().DeclaringType.GetMethod(nameof(HandleSagaData), BindingFlags.Static | BindingFlags.NonPublic)
-                .MakeGenericMethod(typeof(TMessage), sagaDataType)
+                .MakeGenericMethod(typeof(TSagaMessage),sagaDataType)
                 .Invoke(null, new object[] { request, provider, _svc, cancellationToken });
         }
 
-        private static async Task HandleSagaData<TSagaMessage, TSagaData>(ReceiveContext<TSagaMessage, ValueTuple> request, IServiceProvider provider, ISagaStepHandler<TSagaMessage> stepHandler, CancellationToken cancellationToken) where TSagaMessage : ISagaContract where TSagaData : class, ISagaData
+        internal static async Task HandleSagaData<TSagaMessage, TSagaData>(ReceiveContext<TSagaMessage, ValueTuple> request, IServiceProvider provider, ISagaStepHandler<TSagaMessage> stepHandler, CancellationToken cancellationToken) where TSagaMessage : ISagaContract where TSagaData : class, ISagaData
         {
             SagaFinderContext finderContext = new SagaFinderContext();
 
@@ -165,42 +131,6 @@ namespace Micro.Net
 
                 return;
             }
-        }
-    }
-
-    public class HandlerShell<TRequest, TResponse> : IRequestHandler<ReceiveContext<TRequest, TResponse>>
-        where TRequest : IContract<TResponse>
-    {
-        private readonly IServiceProvider _provider;
-
-
-        public HandlerShell(IServiceProvider provider)
-        {
-            _provider = provider;
-        }
-
-        public async Task<Unit> Handle(ReceiveContext<TRequest, TResponse> notification, CancellationToken cancellationToken)
-        {
-            HandlerContext context = new HandlerContext(_provider.GetService<IMediator>());
-
-
-
-            if (typeof(TResponse) != typeof(ValueTuple))
-            {
-                IHandle<TRequest, TResponse> svc = _provider.GetService<IHandle<TRequest, TResponse>>();
-
-                notification.Response.Payload = await svc.Handle(notification.Request.Payload, context);
-            }
-            else
-            {
-                dynamic svc = _provider.GetService(typeof(IHandle<>).MakeGenericType(typeof(TRequest)));
-
-                await svc.Handle(notification.Request.Payload, context);
-
-                notification.Response.Payload = default;
-            }
-
-            return Unit.Value;
         }
     }
 }

@@ -1,8 +1,8 @@
 using System;
-using Automatonymous;
 using MediatR;
+using Micro.Net.Abstractions;
 
-namespace Micro.Net
+namespace Micro.Net.Receive
 {
     public class ReceiveContext<TRequest, TResponse> : ContextBase, IRequest
     {

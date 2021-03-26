@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Micro.Net
+namespace Micro.Net.Receive
 {
     public class RequestContext<TRequest>
     {

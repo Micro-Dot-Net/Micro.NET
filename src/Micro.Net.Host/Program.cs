@@ -6,8 +6,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using MediatR;
-using Micro.Net.Host.Dispatch;
-using Micro.Net.Host.Dispatch.Http;
+using Micro.Net.Abstractions;
+using Micro.Net.Dispatch;
+using Micro.Net.Dispatch.Http;
+using Micro.Net.Handling;
+using Micro.Net.Receive;
+using Micro.Net.Receive.Http;
+using Micro.Net.Test;
 
 namespace Micro.Net
 {

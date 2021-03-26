@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using Micro.Net.Abstractions;
 
-namespace Micro.Net
+namespace Micro.Net.Handling
 {
     public class GenericHandler<TRequest, TResponse> : IHandle<TRequest,TResponse> where TRequest : IContract<TResponse>
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Micro.Net
+namespace Micro.Net.Abstractions
 {
     public abstract class ContextBase : IFaultable, ITerminable, IResolvable
     {

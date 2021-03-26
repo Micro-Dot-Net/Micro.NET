@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Micro.Net.Host.Abstractions.Storage
+namespace Micro.Net.Abstractions.Storage
 {
     public interface IPersistenceProvider<TData> where TData : class
     {

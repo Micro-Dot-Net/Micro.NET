@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Micro.Net.Host.Abstractions.Storage;
 
-namespace Micro.Net.Host.Abstractions.Sagas
+namespace Micro.Net.Abstractions.Sagas
 {
     public interface ISagaFinder<TData> where TData : ISagaData
     {

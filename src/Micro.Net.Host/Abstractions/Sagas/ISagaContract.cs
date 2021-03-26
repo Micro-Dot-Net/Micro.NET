@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Micro.Net.Host.Abstractions.Sagas
+namespace Micro.Net.Abstractions.Sagas
 {
     public interface ISagaContract : IContract
     {

@@ -1,4 +1,4 @@
-﻿namespace Micro.Net.Host.Abstractions.Storage
+﻿namespace Micro.Net.Abstractions.Storage
 {
     public interface IPersistenceProviderFactory
     {

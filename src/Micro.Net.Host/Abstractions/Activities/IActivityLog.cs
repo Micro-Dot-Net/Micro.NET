@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Micro.Net.Host.Abstractions.Activities
+namespace Micro.Net.Abstractions.Activities
 {
     public interface IActivityLog
     {

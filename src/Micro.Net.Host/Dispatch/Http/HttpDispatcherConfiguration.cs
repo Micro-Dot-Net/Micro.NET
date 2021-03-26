@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace Micro.Net.Host.Dispatch.Http
+namespace Micro.Net.Dispatch.Http
 {
     public class HttpDispatcherConfiguration
     {

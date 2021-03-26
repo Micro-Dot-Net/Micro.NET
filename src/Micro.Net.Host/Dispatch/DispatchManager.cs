@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Micro.Net.Abstractions;
+using Micro.Net.Exceptions;
 
-namespace Micro.Net.Host.Dispatch
+namespace Micro.Net.Dispatch
 {
     public class DispatchManager<TRequest, TResponse> : IDispatchManager<TRequest,TResponse> where TRequest : IContract<TResponse>
     {
@@ -24,6 +26,7 @@ namespace Micro.Net.Host.Dispatch
             {
                 if (candidateDispatcher.Available.Contains((typeof(TRequest), typeof(TResponse))))
                 {
+                    //TODO: Check features against options
                     dispatcher = candidateDispatcher;
                     break;
                 }
@@ -31,7 +34,7 @@ namespace Micro.Net.Host.Dispatch
 
             if (dispatcher == null)
             {
-                request.SetFault(MicroDispatcherException.NoMapping);
+                request.SetFault(MicroDispatcherException.NoMapping(typeof(TRequest), typeof(TResponse)));
             }
             else
             {

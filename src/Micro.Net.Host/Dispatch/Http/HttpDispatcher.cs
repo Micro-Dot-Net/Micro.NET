@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Micro.Net.Host.Dispatch.Http
+namespace Micro.Net.Dispatch.Http
 {
     public class HttpDispatcher : IDispatcher
     {
@@ -20,6 +19,8 @@ namespace Micro.Net.Host.Dispatch.Http
         }
 
         public IEnumerable<(Type, Type)> Available => _config.Routes.Keys;
+        public ISet<DispatcherFeature> Features => new HashSet<DispatcherFeature> {DispatcherFeature.Replies};
+
         public async Task<TResponse> Handle<TRequest, TResponse>(TRequest message, DispatchOptions options)
         {
             if (!Available.Contains((typeof(TRequest), typeof(TResponse))))

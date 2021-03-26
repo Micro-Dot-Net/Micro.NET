@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dotnet-Micro.Net.Host-718FEE96-DEEA-43B9-AC0E-CA50B6160608</UserSecretsId>
+    <RootNamespace>Micro.Net</RootNamespace>
+    <AssemblyName>Micro.Net</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Abstractions\Features\" />
     <Folder Include="Storage\" />
-    <Folder Include="Sagas\" />
   </ItemGroup>
 </Project>

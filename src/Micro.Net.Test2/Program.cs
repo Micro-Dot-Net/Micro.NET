@@ -1,6 +1,4 @@
 using MediatR;
-using Micro.Net.Host.Dispatch;
-using Micro.Net.Host.Dispatch.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -9,6 +7,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Micro.Net.Abstractions;
+using Micro.Net.Handling;
+using Micro.Net.Receive;
+using Micro.Net.Receive.Http;
+using Micro.Net.Test;
 using Microsoft.Extensions.Logging;
 
 namespace Micro.Net.Test2

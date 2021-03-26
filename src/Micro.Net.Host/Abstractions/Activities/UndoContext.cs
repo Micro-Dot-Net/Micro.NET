@@ -1,4 +1,4 @@
-﻿namespace Micro.Net.Host.Abstractions.Activities
+﻿namespace Micro.Net.Abstractions.Activities
 {
     public abstract class UndoContext
     {

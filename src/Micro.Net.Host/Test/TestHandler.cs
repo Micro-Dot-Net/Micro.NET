@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using Micro.Net.Abstractions;
+using Micro.Net.Handling;
 
-namespace Micro.Net
+namespace Micro.Net.Test
 {
     public class TestHandler : IHandle<TestRequest,TestResponse>
     {

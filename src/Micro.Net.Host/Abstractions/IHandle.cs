@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
+using Micro.Net.Handling;
 
-namespace Micro.Net
+namespace Micro.Net.Abstractions
 {
     public interface IHandle<TMessage> where TMessage : IContract
     {

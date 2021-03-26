@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Micro.Net
+namespace Micro.Net.Abstractions
 {
     public interface ITerminable
     {

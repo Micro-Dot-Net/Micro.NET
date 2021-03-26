@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Micro.Net.Host.Abstractions.Sagas
+namespace Micro.Net.Abstractions.Sagas
 {
     public interface ISagaContext : IFaultable, IResolvable, ITerminable
     {

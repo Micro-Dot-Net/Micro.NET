@@ -1,6 +1,6 @@
 using System;
 
-namespace Micro.Net
+namespace Micro.Net.Exceptions
 {
     public class InitializationException : ApplicationException
     {

@@ -9,10 +9,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using MediatR;
+using Micro.Net.Abstractions;
+using Micro.Net.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Micro.Net
+namespace Micro.Net.Receive.Http
 {
     public class HttpReceiver : IStartable, IStoppable
     {

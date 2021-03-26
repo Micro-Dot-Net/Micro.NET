@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Micro.Net.Handling;
 
-namespace Micro.Net.Host.Abstractions.Sagas
+namespace Micro.Net.Abstractions.Sagas
 {
     public interface ISagaNotFoundHandler
     {

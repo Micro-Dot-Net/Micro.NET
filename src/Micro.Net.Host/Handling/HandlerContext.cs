@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
 using MediatR;
-using Micro.Net.Host.Dispatch;
+using Micro.Net.Abstractions;
+using Micro.Net.Dispatch;
 
-namespace Micro.Net
+namespace Micro.Net.Handling
 {
     public class HandlerContext : IHandlerContext
     {

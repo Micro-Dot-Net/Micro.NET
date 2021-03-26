@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Micro.Net.Host.Abstractions.Activities
+namespace Micro.Net.Abstractions.Activities
 {
     public interface IActivity<TMessage,TLog> where TMessage : IActivityContract<TLog> where TLog : IActivityLog
     {
