@@ -28,7 +28,7 @@ namespace Micro.Net
             collection.AddTransient<IHandle<TestRequest, TestResponse>, TestHandler>();
 
             collection
-                .AddTransient<IRequestHandler<DispatchContext<TestCommand, ValueTuple>, Unit>,
+                .AddTransient<IRequestHandler<DispatchManagementContext<TestCommand, ValueTuple>, Unit>,
                     DispatchManager<TestCommand, ValueTuple>>();
 
             collection.AddTransient<IDispatcher, HttpDispatcher>();

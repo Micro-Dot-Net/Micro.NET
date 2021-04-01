@@ -18,7 +18,7 @@ namespace Micro.Net.Dispatch
             _dispatchers = dispatchers;
         }
 
-        public async Task<Unit> Handle(DispatchContext<TRequest, TResponse> request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DispatchManagementContext<TRequest, TResponse> request, CancellationToken cancellationToken)
         {
             IDispatcher dispatcher = null;
 
@@ -40,8 +40,7 @@ namespace Micro.Net.Dispatch
             {
                 try
                 {
-                    request.Response.Payload =
-                        await dispatcher.Handle<TRequest, TResponse>(request.Request.Payload, request.Options);
+                    await dispatcher.Handle<TRequest, TResponse>(request);
 
                     request.SetResolve();
                 }

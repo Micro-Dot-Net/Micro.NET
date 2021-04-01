@@ -17,7 +17,7 @@ namespace Micro.Net.Handling
 
         public async Task<TResponse> Dispatch<TRequest, TResponse>(TRequest request, Action<DispatchOptions> ctxAction = null) where TRequest : IContract<TResponse>
         {
-            DispatchContext<TRequest, TResponse> context = DispatchContext<TRequest, TResponse>.Create(request);
+            DispatchManagementContext<TRequest, TResponse> context = DispatchManagementContext<TRequest, TResponse>.Create(request);
 
             ctxAction?.Invoke(context.Options);
 
@@ -28,7 +28,7 @@ namespace Micro.Net.Handling
 
         public async Task Dispatch<TRequest>(TRequest request, Action<DispatchOptions> ctxAction = null) where TRequest : IContract
         {
-            DispatchContext<TRequest, ValueTuple> context = DispatchContext<TRequest, ValueTuple>.Create(request);
+            DispatchManagementContext<TRequest, ValueTuple> context = DispatchManagementContext<TRequest, ValueTuple>.Create(request);
 
             ctxAction?.Invoke(context.Options);
 

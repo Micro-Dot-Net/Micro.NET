@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Micro.Net.Transport.FileSystem
+namespace Micro.Net.Storage.Generic
 {
     public class Class1
     {

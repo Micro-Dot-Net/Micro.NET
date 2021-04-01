@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Micro.Net.Abstractions;
 
 namespace Micro.Net.Dispatch.Http
 {
@@ -21,7 +22,7 @@ namespace Micro.Net.Dispatch.Http
         public IEnumerable<(Type, Type)> Available => _config.Routes.Keys;
         public ISet<DispatcherFeature> Features => new HashSet<DispatcherFeature> {DispatcherFeature.Replies};
 
-        public async Task<TResponse> Handle<TRequest, TResponse>(TRequest message, DispatchOptions options)
+        public async Task Handle<TRequest, TResponse>(DispatchContext<TRequest,TResponse> messageContext) where TRequest : IContract<TResponse>
         {
             if (!Available.Contains((typeof(TRequest), typeof(TResponse))))
             {
@@ -34,7 +35,7 @@ namespace Micro.Net.Dispatch.Http
 
             HttpRequestMessage request = new HttpRequestMessage(verb, route);
 
-            request.Content = JsonContent.Create<TRequest>(message);
+            request.Content = JsonContent.Create<TRequest>(messageContext.Request.Payload);
 
             request.Headers.Add("Source", $"machine://{Environment.MachineName}");
 
@@ -43,11 +44,11 @@ namespace Micro.Net.Dispatch.Http
                 request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
             }
 
-            foreach ((string, string) header in options.Headers)
+            foreach (KeyValuePair<string, string[]> header in messageContext.Request.Headers)
             {
-                request.Headers.Add(header.Item1, header.Item2);
+                request.Headers.Add(header.Key, header.Value);
             }
-            
+
             try
             {
                 response = await _client.SendAsync(request);
@@ -59,45 +60,35 @@ namespace Micro.Net.Dispatch.Http
 
             if (!response.IsSuccessStatusCode)
             {
-                if (options.ThrowOnFailure)
-                {
-                    Exception ex = HttpDispatcherException.ConfigurationRelatedError;
+                Exception ex = HttpDispatcherException.ConfigurationRelatedError;
 
-                    ex.Data["StatusCode"] = response.StatusCode;
+                ex.Data["StatusCode"] = response.StatusCode;
 
-                    throw ex;
-                }
-                else
-                {
-                    return default;
-                }
+                messageContext.SetFault(ex);
             }
 
             if (typeof(TResponse) == typeof(ValueTuple))
             {
-                return default;
+                messageContext.SetResolve();
+
+                return;
             }
 
             try
             {
                 TResponse respMsg = await response.Content.ReadFromJsonAsync<TResponse>();
 
-                return respMsg;
+                messageContext.Response.Payload = respMsg;
+
+                messageContext.SetResolve();
             }
             catch (Exception)
             {
-                if (options.ThrowOnFailure)
-                {
-                    Exception ex = HttpDispatcherException.ConfigurationRelatedError;
+                 Exception ex = HttpDispatcherException.ConfigurationRelatedError;
 
                     ex.Data["Reason"] = "Deserialization type mismatch.";
 
-                    throw ex;
-                }
-                else
-                {
-                    return default;
-                }
+                    messageContext.SetFault(ex);
             }
         }
     }

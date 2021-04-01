@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Folder Include="Abstractions\Features\" />
+    <Folder Include="Abstractions\Management\" />
+    <Folder Include="Abstractions\Types\" />
     <Folder Include="Storage\" />
   </ItemGroup>
 </Project>

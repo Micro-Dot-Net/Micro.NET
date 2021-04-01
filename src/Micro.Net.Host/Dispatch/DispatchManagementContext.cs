@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Receive;
 
 namespace Micro.Net.Dispatch
 {
-    public class DispatchContext<TRequest,TResponse> : ContextBase, IRequest where TRequest : IContract<TResponse>
+    public class DispatchManagementContext<TRequest, TResponse> : DispatchContext<TRequest,TResponse> where TRequest : IContract<TResponse>
     {
-        public Uri Source { get; set; }
-        public Uri Destination { get; set; }
-        public RequestContext<TRequest> Request { get; set; }
-        public ResponseContext<TResponse> Response { get; set; }
+        public DispatchOptions Options { get; set; }
 
-        public static DispatchContext<TRequest, TResponse> Create(TRequest request)
+        public static DispatchManagementContext<TRequest, TResponse> Create(TRequest request)
         {
-            DispatchContext<TRequest, TResponse> context = new DispatchContext<TRequest, TResponse>()
+            DispatchManagementContext<TRequest, TResponse> context = new DispatchManagementContext<TRequest, TResponse>()
             {
+                Options = DispatchOptions.Create(),
                 Destination = new Uri("null://"),
                 Source = new Uri("null://"),
                 Request = new RequestContext<TRequest>()
@@ -40,7 +37,7 @@ namespace Micro.Net.Dispatch
 
             if (typeof(TResponse) != typeof(ValueTuple))
             {
-                context.Request.Headers.Add("X-ResponseType", new[] { typeof(TResponse).AssemblyQualifiedName});
+                context.Request.Headers.Add("X-ResponseType", new[] { typeof(TResponse).AssemblyQualifiedName });
             }
 
             return context;

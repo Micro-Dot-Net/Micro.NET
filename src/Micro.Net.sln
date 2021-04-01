@@ -7,31 +7,39 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Host", "Micro.Net
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Storage.Sql", "Micro.Net.Storage.Sql\Micro.Net.Storage.Sql.csproj", "{C37B2837-E5A9-4C2F-A2E2-308159C19581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Storage.Ignite", "Micro.Net.Storage.Ignite\Micro.Net.Storage.Ignite.csproj", "{12919197-AB02-43AD-8204-811822607060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Storage.Ignite", "Micro.Net.Storage.Ignite\Micro.Net.Storage.Ignite.csproj", "{12919197-AB02-43AD-8204-811822607060}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{D5E6BACA-C193-4392-8E53-BDC2091FD98F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Feature", "Feature", "{B46DAB8B-C3CB-4A2C-A55F-503E14C77F6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Feature.Deduplication", "Micro.Net.Feature.Deduplication\Micro.Net.Feature.Deduplication.csproj", "{DB4CC3E2-488B-4BE0-86CE-3E3791B6C189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Feature.Deduplication", "Micro.Net.Feature.Deduplication\Micro.Net.Feature.Deduplication.csproj", "{DB4CC3E2-488B-4BE0-86CE-3E3791B6C189}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Feature.Authentication", "Micro.Net.Feature.Authentication\Micro.Net.Feature.Authentication.csproj", "{1F4DA7FB-FD03-47CA-A301-9715C3CE06DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Feature.Authentication", "Micro.Net.Feature.Authentication\Micro.Net.Feature.Authentication.csproj", "{1F4DA7FB-FD03-47CA-A301-9715C3CE06DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Feature.Caching", "Micro.Net.Feature.Caching\Micro.Net.Feature.Caching.csproj", "{BFE94B07-7261-46F0-8C63-173B5B832AB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Feature.Caching", "Micro.Net.Feature.Caching\Micro.Net.Feature.Caching.csproj", "{BFE94B07-7261-46F0-8C63-173B5B832AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Storage.FileSystem", "Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj", "{D907AAA7-1182-49C2-93C7-6D0B25569E61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Storage.FileSystem", "Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj", "{D907AAA7-1182-49C2-93C7-6D0B25569E61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Feature.Outbox", "Micro.Net.Feature.Outbox\Micro.Net.Feature.Outbox.csproj", "{4D72007E-2A48-4F2D-8CFD-145766A0B5C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Feature.Outbox", "Micro.Net.Feature.Outbox\Micro.Net.Feature.Outbox.csproj", "{4D72007E-2A48-4F2D-8CFD-145766A0B5C0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transport", "Transport", "{C3D5E84D-22A4-4878-A8B7-448CC805D9E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Transport.FileSystem", "Micro.Net.Transport.FileSystem\Micro.Net.Transport.FileSystem.csproj", "{80ECCAEB-08CE-47C1-8046-096BDA4BCA5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Transport.FileSystem", "Micro.Net.Transport.FileSystem\Micro.Net.Transport.FileSystem.csproj", "{80ECCAEB-08CE-47C1-8046-096BDA4BCA5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Transport.Email", "Micro.Net.Transport.Email\Micro.Net.Transport.Email.csproj", "{83A3FC3A-C917-4710-991A-08329469DD4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Transport.Email", "Micro.Net.Transport.Email\Micro.Net.Transport.Email.csproj", "{83A3FC3A-C917-4710-991A-08329469DD4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Storage.Redis", "Micro.Net.Storage.Redis\Micro.Net.Storage.Redis.csproj", "{3C190A7C-DAB8-448E-9082-FB633C557466}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Storage.Redis", "Micro.Net.Storage.Redis\Micro.Net.Storage.Redis.csproj", "{3C190A7C-DAB8-448E-9082-FB633C557466}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Core", "Micro.Net.Core\Micro.Net.Core.csproj", "{19843CBE-E4C1-45A1-AD40-9DB52FC1A5DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Core", "Micro.Net.Core\Micro.Net.Core.csproj", "{19843CBE-E4C1-45A1-AD40-9DB52FC1A5DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Storage.GoogleCloud", "Micro.Net.Storage.GoogleCloud\Micro.Net.Storage.GoogleCloud.csproj", "{5083C109-A4DB-42EE-925D-96E978885039}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Storage.Generic", "Micro.Net.Storage.Generic\Micro.Net.Storage.Generic.csproj", "{0F62AE76-5898-4F44-807F-014C011E231C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.Net.Transport.Generic", "Micro.Net.Transport.Generic\Micro.Net.Transport.Generic.csproj", "{176BB18E-27DF-4782-A3FE-9D8D273E94A3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discovery", "Discovery", "{1CDB15AD-5FAD-4181-ACD2-24D72093ADC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +95,18 @@ Global
 		{19843CBE-E4C1-45A1-AD40-9DB52FC1A5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19843CBE-E4C1-45A1-AD40-9DB52FC1A5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19843CBE-E4C1-45A1-AD40-9DB52FC1A5DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5083C109-A4DB-42EE-925D-96E978885039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5083C109-A4DB-42EE-925D-96E978885039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5083C109-A4DB-42EE-925D-96E978885039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5083C109-A4DB-42EE-925D-96E978885039}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F62AE76-5898-4F44-807F-014C011E231C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F62AE76-5898-4F44-807F-014C011E231C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F62AE76-5898-4F44-807F-014C011E231C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F62AE76-5898-4F44-807F-014C011E231C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176BB18E-27DF-4782-A3FE-9D8D273E94A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176BB18E-27DF-4782-A3FE-9D8D273E94A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176BB18E-27DF-4782-A3FE-9D8D273E94A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176BB18E-27DF-4782-A3FE-9D8D273E94A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -102,6 +122,9 @@ Global
 		{80ECCAEB-08CE-47C1-8046-096BDA4BCA5E} = {C3D5E84D-22A4-4878-A8B7-448CC805D9E4}
 		{83A3FC3A-C917-4710-991A-08329469DD4C} = {C3D5E84D-22A4-4878-A8B7-448CC805D9E4}
 		{3C190A7C-DAB8-448E-9082-FB633C557466} = {D5E6BACA-C193-4392-8E53-BDC2091FD98F}
+		{5083C109-A4DB-42EE-925D-96E978885039} = {D5E6BACA-C193-4392-8E53-BDC2091FD98F}
+		{0F62AE76-5898-4F44-807F-014C011E231C} = {D5E6BACA-C193-4392-8E53-BDC2091FD98F}
+		{176BB18E-27DF-4782-A3FE-9D8D273E94A3} = {C3D5E84D-22A4-4878-A8B7-448CC805D9E4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91143235-6A1A-4A23-BF19-DAD8E5B70C3B}
