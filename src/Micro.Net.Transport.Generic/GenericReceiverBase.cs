@@ -2,11 +2,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
+using Micro.Net.Core.Receive;
 using Micro.Net.Receive;
 
 namespace Micro.Net.Transport.Generic
 {
-    public abstract class GenericReceiverBase : IStartable, IStoppable
+    public abstract class GenericReceiverBase : IReceiver
     {
         private readonly IReceivePipeFactory _receivePipeFactory;
 
