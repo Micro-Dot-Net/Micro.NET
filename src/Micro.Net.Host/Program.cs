@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -11,6 +12,8 @@ using Micro.Net.Core.Configuration;
 using Micro.Net.Dispatch;
 using Micro.Net.Handling;
 using Micro.Net.Receive;
+using Micro.Net.Serializing;
+using Micro.Net.Storage.FileSystem;
 using Micro.Net.Test;
 using Micro.Net.Transport.Http;
 
@@ -95,7 +98,17 @@ namespace Micro.Net
                                 config.DefaultHeaders.Add("X-Token", new[] { "159e9497-553a-41ad-88c4-2af0f5faf7f2" });
                             })
                             .AddHandler<TestHandler, TestRequest, TestResponse>()
-                            .Configure(config =>
+                            .AddSerializer<JsonSerializer>()
+                            .UseFileSagaPersistence(config =>
+                            {
+                                config.SetDefaults(def =>
+                                {
+                                    def.NamePattern = "{DataType}_{Key}.saga";
+                                    def.StoragePath = Path.Combine(AppContext.BaseDirectory, "Sagas");
+                                    def.KeepProcessed = false;
+                                });
+                            })
+                            .ConfigureSystem(config =>
                             {
                                 config.Dispatch.ThrowOnFault = false;
                             });

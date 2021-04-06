@@ -3,24 +3,10 @@ using System.Threading.Tasks;
 using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Dispatch;
+using Micro.Net.Exceptions;
 
 namespace Micro.Net.Handling
 {
-    public class MicroSystemConfiguration
-    {
-        internal MicroSystemConfiguration()
-        {
-            Dispatch = new MicroSystemDispatchConfiguration();
-        }
-
-        public MicroSystemDispatchConfiguration Dispatch { get; set; }
-    }
-
-    public class MicroSystemDispatchConfiguration
-    {
-        public bool? ThrowOnFault { get; set; }
-    }
-
     public class HandlerContext : IHandlerContext
     {
         private readonly IMediator _mediator;
@@ -61,11 +47,5 @@ namespace Micro.Net.Handling
                 throw ex;
             }
         }
-    }
-
-    public interface IHandlerContext
-    {
-        Task<TResponse> Dispatch<TRequest, TResponse>(TRequest request, Action<DispatchOptions> ctxAction = null, bool? throwOnFault = null) where TRequest : IContract<TResponse>;
-        Task Dispatch<TRequest>(TRequest request, Action<DispatchOptions> ctxAction = null, bool? throwOnFault = null) where TRequest : IContract;
     }
 }

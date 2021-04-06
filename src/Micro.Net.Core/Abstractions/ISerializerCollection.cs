@@ -4,5 +4,6 @@
     {
         ISerializer Default { get; }
         ISerializer Get(string name);
+        bool TryGet(string name, out ISerializer serializer);
     }
 }
