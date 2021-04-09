@@ -206,6 +206,8 @@ namespace Micro.Net.Core.Configuration
                 throw new AggregateException(configurationExceptions);
             }
 
+            services.AddTransient<IPipelineTailFactory, ContextFallbackPipeTailFactory>();
+
             services.AddTransient<MicroSystemConfiguration>(sp => _config.Copy());
         }
     }

@@ -15,7 +15,7 @@ namespace Micro.Net.Test
                 ResponseId = Guid.NewGuid()
             };
 
-            await context.Dispatch(new TestCommand() {Id = message.RequestId});
+            //await context.Dispatch(new TestCommand() {Id = message.RequestId});
 
             return response;
         }

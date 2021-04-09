@@ -9,6 +9,11 @@ namespace Micro.Net.Serializing
     {
         private readonly JsonSerializerSettings _settings;
 
+        public JsonSerializer() : this(new JsonSerializerSettings())
+        {
+
+        }
+
         public JsonSerializer(JsonSerializerSettings settings)
         {
             _settings = settings;

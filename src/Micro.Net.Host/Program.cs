@@ -91,12 +91,12 @@ namespace Micro.Net
                         cfg
                             .UseHttpReceiver(config =>
                             {
-                                config.BaseUris.Add("http://localhost:8880/");
+                                config.BaseUris.Add("http://localhost:8881/");
                                 config.PathMaps.Add("/micro/test", (typeof(TestRequest), typeof(TestResponse)));
                             })
                             .UseHttpDispatcher(config =>
                             {
-                                config.Routes.Add((typeof(TestCommand), typeof(ValueTuple)), (new Uri("http://localhost:8881/micro2/test"), HttpMethod.Post));
+                                config.Routes.Add((typeof(TestCommand), typeof(ValueTuple)), (new Uri("http://localhost:8882/micro2/test"), HttpMethod.Post));
                                 config.DefaultHeaders.Add("X-Token", new[] { "159e9497-553a-41ad-88c4-2af0f5faf7f2" });
                             })
                             .AddHandler<TestHandler, TestRequest, TestResponse>()

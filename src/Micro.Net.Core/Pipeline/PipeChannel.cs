@@ -14,14 +14,16 @@ namespace Micro.Net.Core.Abstractions.Pipeline
         private readonly IEnumerable<IPipelineTail> _pipeTails;
         private readonly IEnumerable<IPipelineStep> _pipeSteps;
         private readonly IEnumerable<IPipelineStepFactory> _pipelineStepFactories;
+        private readonly IEnumerable<IPipelineTailFactory> _pipelineTailFactories;
 
         private readonly IMemoryCache _pipeCache = new MemoryCache(new MemoryCacheOptions());
 
-        public PipeChannel(IEnumerable<IPipelineTail> pipeTails, IEnumerable<IPipelineStep> pipeSteps, IEnumerable<IPipelineStepFactory> pipelineStepFactories)
+        public PipeChannel(IEnumerable<IPipelineTail> pipeTails, IEnumerable<IPipelineStep> pipeSteps, IEnumerable<IPipelineStepFactory> pipelineStepFactories, IEnumerable<IPipelineTailFactory> pipelineTailFactories)
         {
             _pipeTails = pipeTails;
             _pipeSteps = pipeSteps;
-            _pipelineStepFactories = pipelineStepFactories;
+            _pipelineStepFactories = pipelineStepFactories.OrderBy(x => x.Priority);
+            _pipelineTailFactories = pipelineTailFactories.OrderBy(x => x.Priority);
         }
 
         public async Task<TResponse> Handle<TRequest, TResponse>(TRequest request)
@@ -30,9 +32,22 @@ namespace Micro.Net.Core.Abstractions.Pipeline
 
             if(!_pipeCache.TryGetValue((typeof(TRequest),typeof(TResponse)), out pipeHead))
             {
-                IPipelineTail<TRequest, TResponse> _pipeTail = _pipeTails.OfType<IPipelineTail<TRequest, TResponse>>().SingleOrDefault();
+                IPipelineTail<TRequest, TResponse> pipeTail = _pipeTails.OfType<IPipelineTail<TRequest, TResponse>>().SingleOrDefault();
 
-                if (_pipeTail == null)
+                if (pipeTail == null)
+                {
+                    foreach (IPipelineTailFactory factory in _pipelineTailFactories)
+                    {
+                        if (factory.TryCreate(out IPipelineTail<TRequest, TResponse> tail))
+                        {
+                            pipeTail = tail;
+
+                            break;
+                        }
+                    }
+                }
+
+                if (pipeTail == null)
                 {
                     throw new MicroConfigurationException("Pipeline wasn't assembled properly!", 999);
                 }
@@ -41,7 +56,7 @@ namespace Micro.Net.Core.Abstractions.Pipeline
 
                 pipeSteps = pipeSteps.Union(_pipelineStepFactories.Select(x => x.Create<TRequest, TResponse>().Result));
 
-                pipeHead = new Pipeline<TRequest, TResponse>(_pipeTail, pipeSteps);
+                pipeHead = new Pipeline<TRequest, TResponse>(pipeTail, pipeSteps);
             }
 
             return await pipeHead.Execute(request);

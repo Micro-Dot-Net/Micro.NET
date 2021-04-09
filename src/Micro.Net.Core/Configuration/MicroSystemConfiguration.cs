@@ -12,10 +12,12 @@ namespace Micro.Net.Handling
         {
             Dispatch = new MicroSystemDispatchConfiguration();
             DefaultSerializer = typeof(JsonSerializer);
+            PipelineFailbackStatus = ContextStatus.Faulted;
         }
 
         public MicroSystemDispatchConfiguration Dispatch { get; set; }
         public Type DefaultSerializer { get; private set; }
+        public ContextStatus? PipelineFailbackStatus { get; set; }
 
         internal bool TryValidate(out IEnumerable<Exception> exceptions)
         {

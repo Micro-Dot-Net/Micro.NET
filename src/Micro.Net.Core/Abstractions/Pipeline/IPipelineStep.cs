@@ -8,9 +8,4 @@ namespace Micro.Net.Core.Pipeline
     }
 
     public interface IPipelineStep { }
-
-    public interface IPipelineStepFactory
-    {
-        Task<IPipelineStep<TRequest, TResponse>> Create<TRequest, TResponse>();
-    }
 }

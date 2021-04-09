@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
 using Micro.Net.Core.Abstractions.Pipeline;
-using Newtonsoft.Json;
 
 namespace Micro.Net.Core.Pipeline
 {
@@ -43,32 +41,4 @@ namespace Micro.Net.Core.Pipeline
 			return pipe;
 		}
 	}
-
-	public class LoggingPipeStepFactory : IPipelineStepFactory
-    {
-		public async Task<IPipelineStep<TRequest, TResponse>> Create<TRequest, TResponse>()
-        {
-            return new GenericPipeStep<TRequest, TResponse>(next => async req =>
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(req, Formatting.Indented));
-
-                return await next.Invoke(req);
-            });
-        }
-	}
-
-    public class GenericPipeStep<TRequest, TResponse> : IPipelineStep<TRequest, TResponse>
-    {
-        private readonly Func<PipelineDelegate<TRequest, TResponse>, PipelineDelegate<TRequest, TResponse>> _middleware;
-
-        public GenericPipeStep(Func<PipelineDelegate<TRequest, TResponse>, PipelineDelegate<TRequest, TResponse>> middleware)
-        {
-            _middleware = middleware;
-        }
-
-        public async Task<TResponse> Step(TRequest context, PipelineDelegate<TRequest, TResponse> next)
-        {
-            return await _middleware.Invoke(next).Invoke(context);
-        }
-    }
 }

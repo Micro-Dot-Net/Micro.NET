@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,10 +14,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Micro.Net.Handling
 {
+    internal static class SagaCache
+    {
+        public static readonly IDictionary<Type, MethodInfo> _sagaHandleCache =
+            new ConcurrentDictionary<Type, MethodInfo>();
+    }
+
+    internal static class HandlerCache
+    {
+        public static readonly IDictionary<(Type, Type), Func<object, HandlerContext, Task<object>>> _handleCache =
+            new ConcurrentDictionary<(Type, Type), Func<object, HandlerContext, Task<object>>>();
+    }
+
     public class HandlerShell<TMessage> : IPipelineTail<ReceiveContext<TMessage,ValueTuple>,ValueTuple> where TMessage : IContract
     {
         private readonly IServiceProvider _provider;
-
 
         public HandlerShell(IServiceProvider provider)
         {
@@ -28,10 +41,10 @@ namespace Micro.Net.Handling
 
             if (request.Request.Payload is ISagaContract)
             {
-                //TODO: Add method-caching
-                await (Task)this.GetType().GetMethod(nameof(SagaShell.HandleSaga), BindingFlags.Static | BindingFlags.NonPublic)
-                    .MakeGenericMethod(typeof(TMessage))
-                    .Invoke(null, new object[] { request, _provider, CancellationToken.None });
+                SagaCache._sagaHandleCache[request.Request.Payload.GetType()] ??= this.GetType().GetMethod(nameof(SagaShell.HandleSaga), BindingFlags.Static | BindingFlags.NonPublic)
+                    .MakeGenericMethod(typeof(TMessage));
+                
+                await (Task)SagaCache._sagaHandleCache[request.Request.Payload.GetType()].Invoke(null, new object[] { request, _provider, CancellationToken.None });
             }
             else
             {
@@ -63,22 +76,38 @@ namespace Micro.Net.Handling
         {
             HandlerContext context = new HandlerContext(_provider.GetService<IPipeChannel>(), _provider.GetService<MicroSystemConfiguration>());
 
-            //TODO: Cache branches/types
-            //TODO: Set up terminate handler and resolve handler
-            if (typeof(TResponse) != typeof(ValueTuple))
+            Func<object, HandlerContext, Task<object>> _handle = null;
+
+            if (HandlerCache._handleCache.TryGetValue((typeof(TRequest), typeof(TResponse)), out Func<object, HandlerContext, Task<object>> handle))
             {
-                IHandle<TRequest, TResponse> svc = _provider.GetService<IHandle<TRequest, TResponse>>();
-
-                request.Response.Payload = await svc.Handle(request.Request.Payload, context);
+                _handle = handle;
             }
-            else
+            
+            if (_handle == null)
             {
-                dynamic svc = _provider.GetService(typeof(IHandle<>).MakeGenericType(typeof(TRequest)));
+                if (typeof(TResponse) != typeof(ValueTuple))
+                {
+                    IHandle<TRequest, TResponse> svc = _provider.GetService<IHandle<TRequest, TResponse>>();
 
-                await svc.Handle(request.Request.Payload, context);
+                    HandlerCache._handleCache[(typeof(TRequest), typeof(TResponse))] = _handle = async (obj, ctx) =>
+                    {
+                        return await svc.Handle(request.Request.Payload, context);
+                    };
+                }
+                else
+                {
+                    dynamic svc = _provider.GetService(typeof(IHandle<>).MakeGenericType(typeof(TRequest)));
 
-                request.Response.Payload = default;
+                    HandlerCache._handleCache[(typeof(TRequest), typeof(TResponse))] = _handle = async (obj, ctx) =>
+                    {
+                        await svc.Handle(request.Request.Payload, context);
+
+                        return default(TResponse);
+                    };
+                }
             }
+
+            request.Response.Payload = (TResponse) await _handle.Invoke(request, context);
 
             return ValueTuple.Create();
         }
