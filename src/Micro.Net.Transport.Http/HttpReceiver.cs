@@ -8,8 +8,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using MediatR;
 using Micro.Net.Abstractions;
+using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Core.Receive;
 using Micro.Net.Exceptions;
 using Micro.Net.Receive;
@@ -20,13 +20,13 @@ namespace Micro.Net.Transport.Http
 {
     public class HttpReceiver : IReceiver
     {
-        private readonly IMediator _mediator;
+        private readonly IPipeChannel _channel;
         private readonly HttpListener _listener;
         private readonly HttpReceiverConfiguration _configuration;
 
-        public HttpReceiver(IMediator mediator, HttpListener listener, HttpReceiverConfiguration configuration)
+        public HttpReceiver(IPipeChannel channel, HttpListener listener, HttpReceiverConfiguration configuration)
         {
-            _mediator = mediator;
+            _channel = channel;
             _listener = listener;
             _configuration = configuration;
         }
@@ -123,7 +123,7 @@ namespace Micro.Net.Transport.Http
 
                 try
                 {
-                    await _mediator.Send(context);
+                    await _channel.Handle(context);
 
                     foreach (KeyValuePair<string, string> header in context.Response.Headers)
                     {

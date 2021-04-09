@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MediatR;
+using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Receive;
 
 namespace Micro.Net.Core.Receive
 {
     public class ReceivePipeFactory : IReceivePipeFactory
     {
-        private readonly IMediator _mediator;
+        private readonly IPipeChannel _channel;
 
 
-        public ReceivePipeFactory(IMediator mediator)
+        public ReceivePipeFactory(IPipeChannel channel)
         {
-            _mediator = mediator;
+            _channel = channel;
         }
 
         public ReceiveContextDelegate<TRequest, TResponse> Create<TRequest, TResponse>()
         {
             return async (ReceiveContext<TRequest, TResponse> context) =>
             {
-                await _mediator.Send<Unit>(context);
+                await _channel.Handle(context);
             };
         }
     }

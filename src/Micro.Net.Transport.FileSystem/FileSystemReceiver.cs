@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using ChinhDo.Transactions;
 using Micro.Net.Abstractions;
+using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Exceptions;
 using Micro.Net.Receive;
 using Micro.Net.Serializing;
@@ -24,7 +25,7 @@ namespace Micro.Net.Transport.FileSystem
         private readonly ISerializerCollection _serializerCollection;
         private readonly ICollection<FileSystemWatcher> _watchers;
 
-        public FileSystemReceiver(IReceivePipeFactory receivePipeFactory, FileSystemReceiveConfiguration config, ISerializerCollection serializerCollection) : base(receivePipeFactory)
+        public FileSystemReceiver(IPipeChannel receivePipeFactory, FileSystemReceiveConfiguration config, ISerializerCollection serializerCollection) : base(receivePipeFactory)
         {
             _config = config;
             _serializerCollection = serializerCollection;

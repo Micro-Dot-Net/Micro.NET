@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using MediatR;
 using Micro.Net.Abstractions;
+using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Dispatch;
 using Micro.Net.Exceptions;
 
@@ -9,12 +9,12 @@ namespace Micro.Net.Handling
 {
     public class HandlerContext : IHandlerContext
     {
-        private readonly IMediator _mediator;
+        private readonly IPipeChannel _pipeChannel;
         private readonly MicroSystemConfiguration _config;
 
-        public HandlerContext(IMediator mediator, MicroSystemConfiguration config)
+        public HandlerContext(IPipeChannel pipeChannel, MicroSystemConfiguration config)
         {
-            _mediator = mediator;
+            _pipeChannel = pipeChannel;
             _config = config;
         }
 
@@ -24,7 +24,7 @@ namespace Micro.Net.Handling
 
             ctxAction?.Invoke(context.Options);
 
-            await _mediator.Send(context);
+            await _pipeChannel.Handle(context);
 
             if (context.TryGetFault(out Exception ex) && (throwOnFault ?? _config.Dispatch.ThrowOnFault ?? false))
             {
@@ -40,7 +40,7 @@ namespace Micro.Net.Handling
 
             ctxAction?.Invoke(context.Options);
 
-            await _mediator.Send(context);
+            await _pipeChannel.Handle(context);
 
             if (context.TryGetFault(out Exception ex) && (throwOnFault ?? _config.Dispatch.ThrowOnFault ?? false))
             {

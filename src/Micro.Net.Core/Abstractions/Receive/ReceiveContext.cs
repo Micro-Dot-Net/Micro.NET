@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using MediatR;
 using Micro.Net.Abstractions;
 
 namespace Micro.Net.Receive
 {
-    public class ReceiveContext<TRequest, TResponse> : ContextBase, IRequest
+    public class ReceiveContext<TRequest, TResponse> : ContextBase
     {
         public Uri Source { get; set; }
         public Uri Destination { get; set; }

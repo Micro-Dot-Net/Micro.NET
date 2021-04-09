@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Exceptions;
 
@@ -18,7 +17,7 @@ namespace Micro.Net.Dispatch
             _dispatchers = dispatchers;
         }
 
-        public async Task<Unit> Handle(DispatchManagementContext<TRequest, TResponse> request, CancellationToken cancellationToken)
+        public async Task Handle(DispatchManagementContext<TRequest, TResponse> request, CancellationToken cancellationToken)
         {
             IDispatcher dispatcher = null;
 
@@ -49,8 +48,13 @@ namespace Micro.Net.Dispatch
                     request.SetFault(ex);
                 }
             }
+        }
 
-            return Unit.Value;
+        public async Task<ValueTuple> Handle(DispatchManagementContext<TRequest, TResponse> request)
+        {
+            await Handle(request, CancellationToken.None);
+
+            return ValueTuple.Create();
         }
     }
 }

@@ -9,13 +9,15 @@ using System.Threading;
 using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Core.Configuration;
+using Micro.Net.Core.Pipeline;
 using Micro.Net.Dispatch;
 using Micro.Net.Handling;
 using Micro.Net.Receive;
-using Micro.Net.Serializing;
 using Micro.Net.Storage.FileSystem;
 using Micro.Net.Test;
 using Micro.Net.Transport.Http;
+using Newtonsoft.Json;
+using JsonSerializer = Micro.Net.Serializing.JsonSerializer;
 
 namespace Micro.Net
 {
@@ -99,6 +101,8 @@ namespace Micro.Net
                             })
                             .AddHandler<TestHandler, TestRequest, TestResponse>()
                             .AddSerializer<JsonSerializer>()
+                            .AddComponent<JsonSerializerSettings>(ServiceLifetime.Singleton)
+                            .AddComponent<IPipelineStepFactory, LoggingPipeStepFactory>(ServiceLifetime.Singleton)
                             .UseFileSagaPersistence(config =>
                             {
                                 config.SetDefaults(def =>

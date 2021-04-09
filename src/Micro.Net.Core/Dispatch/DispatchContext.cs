@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Receive;
 
 namespace Micro.Net.Dispatch
 {
-    public class DispatchContext<TRequest,TResponse> : ContextBase, IRequest where TRequest : IContract<TResponse>
+    public class DispatchContext<TRequest,TResponse> : ContextBase where TRequest : IContract<TResponse>
     {
         public Uri Source { get; set; }
         public Uri Destination { get; set; }

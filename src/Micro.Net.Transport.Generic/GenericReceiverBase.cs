@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
+using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Core.Receive;
 using Micro.Net.Receive;
 
@@ -9,11 +10,11 @@ namespace Micro.Net.Transport.Generic
 {
     public abstract class GenericReceiverBase : IReceiver
     {
-        private readonly IReceivePipeFactory _receivePipeFactory;
+        private readonly IPipeChannel _pipeChannel;
 
-        protected GenericReceiverBase(IReceivePipeFactory receivePipeFactory)
+        protected GenericReceiverBase(IPipeChannel pipeChannel)
         {
-            _receivePipeFactory = receivePipeFactory;
+            _pipeChannel = pipeChannel;
         }
 
         public virtual async Task Start(CancellationToken cancellationToken){ }
@@ -29,9 +30,7 @@ namespace Micro.Net.Transport.Generic
         /// <returns>Awaitable task that indicates processing has completed. Check <see cref="ContextStatus"/> on the passed <see cref="ReceiveContext{TRequest,TResponse}"/> for completion status.</returns>
         protected async Task Dispatch<TRequest, TResponse>(ReceiveContext<TRequest,TResponse> context)
         {
-            ReceiveContextDelegate<TRequest,TResponse> del = _receivePipeFactory.Create<TRequest, TResponse>();
-
-            await del.Invoke(context);
+            await _pipeChannel.Handle<ReceiveContext<TRequest, TResponse>>(context);
         }
     }
 }

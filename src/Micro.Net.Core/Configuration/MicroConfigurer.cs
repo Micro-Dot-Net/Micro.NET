@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Abstractions.Storage;
 using Micro.Net.Core.Abstractions.Management;
+using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Core.Extensions;
 using Micro.Net.Core.Hosting;
+using Micro.Net.Core.Pipeline;
 using Micro.Net.Core.Receive;
 using Micro.Net.Core.Storage;
 using Micro.Net.Dispatch;
@@ -15,6 +16,7 @@ using Micro.Net.Receive;
 using Micro.Net.Serializing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Newtonsoft.Json;
 
 namespace Micro.Net.Core.Configuration
 {
@@ -131,15 +133,12 @@ namespace Micro.Net.Core.Configuration
             services.AddTransient<IReceivePipeFactory, ReceivePipeFactory>();
             services.AddTransient(typeof(IDispatchManager<,>), typeof(DispatchManager<,>));
 
-            services.AddMediatR(cfg =>
-            {
-                cfg.AsSingleton();
-            }, typeof(MicroConfigurer));
+            services.AddSingleton<IPipeChannel, PipeChannel>();
 
             foreach ((Type, Type) receivable in _rcvTypes)
             {
-                Type contextType = typeof(ReceiveContext<,>).MakeGenericType(receivable.Item1, receivable.Item2);
-                Type handlerInterface = typeof(IRequestHandler<,>).MakeGenericType(contextType, typeof(Unit));
+                //Type contextType = typeof(ReceiveContext<,>).MakeGenericType(receivable.Item1, receivable.Item2);
+                //Type handlerInterface = typeof().MakeGenericType(contextType, typeof(Unit));
                 Type shellType;
 
 
@@ -152,16 +151,16 @@ namespace Micro.Net.Core.Configuration
                     shellType = typeof(HandlerShell<>).MakeGenericType(receivable.Item1);
                 }
 
-                services.AddTransient(handlerInterface, shellType);
+                services.AddTransient(typeof(IPipelineTail), shellType);
             }
 
             foreach ((Type, Type) dispatchable in _dsptTypes)
             {
-                Type contextType = typeof(DispatchManagementContext<,>).MakeGenericType(dispatchable.Item1, dispatchable.Item2);
-                Type handlerInterface = typeof(IRequestHandler<,>).MakeGenericType(contextType, typeof(Unit));
+                //Type contextType = typeof(DispatchManagementContext<,>).MakeGenericType(dispatchable.Item1, dispatchable.Item2);
+                //Type handlerInterface = typeof(IRequestHandler<,>).MakeGenericType(contextType, typeof(Unit));
                 Type shellType = typeof(DispatchManager<,>).MakeGenericType(dispatchable.Item1, dispatchable.Item2);
 
-                services.AddTransient(handlerInterface, shellType);
+                services.AddTransient(typeof(IPipelineTail), shellType);
             }
 
             foreach (Type type in _dispatchers)
