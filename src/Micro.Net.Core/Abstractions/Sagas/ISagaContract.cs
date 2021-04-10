@@ -4,6 +4,6 @@ namespace Micro.Net.Abstractions.Sagas
 {
     public interface ISagaContract : IContract
     {
-        Guid CorrelationId { get; set; }
+        SagaKey Key { get; set; }
     }
 }

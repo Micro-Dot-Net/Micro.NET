@@ -16,8 +16,15 @@ namespace Micro.Net.Handling
 {
     internal static class SagaCache
     {
-        public static readonly IDictionary<Type, MethodInfo> _sagaHandleCache =
-            new ConcurrentDictionary<Type, MethodInfo>();
+        public static readonly IDictionary<Type, MethodInfo> _sagaHandleCache = new ConcurrentDictionary<Type, MethodInfo>();
+
+        public static readonly IDictionary<Type, Type> _sagaDataMessageMapCache = new ConcurrentDictionary<Type, Type>();
+
+        public static readonly IDictionary<Type, MethodInfo> _slSagaHandleCache = new ConcurrentDictionary<Type, MethodInfo>();
+
+        public static readonly IDictionary<(Type, Type), Func<object, SagaFinderContext, object>> _slSagaDataFindCache = new ConcurrentDictionary<(Type, Type), Func<object, SagaFinderContext, object>>();
+
+        public static readonly IDictionary<Type, Func<object>> _slSagaStartCache = new ConcurrentDictionary<Type, Func<object>>();
     }
 
     internal static class HandlerCache
