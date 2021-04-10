@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
-using MediatR;
 using Micro.Net.Abstractions;
 using Micro.Net.Core.Configuration;
 using Micro.Net.Core.Pipeline;
@@ -18,6 +17,9 @@ using Micro.Net.Test;
 using Newtonsoft.Json;
 using JsonSerializer = Micro.Net.Serializing.JsonSerializer;
 using Micro.Net.Transport.Http;
+using Micro.Net.Transport.Feather;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace Micro.Net
 {
@@ -25,60 +27,6 @@ namespace Micro.Net
     {
         public static void Main(string[] args)
         {
-            //IServiceProvider provider = null;
-
-            //IServiceCollection collection = new ServiceCollection();
-            
-            //collection.AddTransient<IRequestHandler<ReceiveContext<TestRequest, TestResponse>,Unit>, HandlerShell<TestRequest, TestResponse>>();
-            //collection.AddTransient<IHandle<TestRequest, TestResponse>, TestHandler>();
-
-            //collection
-            //    .AddTransient<IRequestHandler<DispatchManagementContext<TestCommand, ValueTuple>, Unit>,
-            //        DispatchManager<TestCommand, ValueTuple>>();
-
-            //collection.AddTransient<IDispatcher, HttpDispatcher>();
-            //collection.AddTransient<HttpDispatcherConfiguration>(sc => new HttpDispatcherConfiguration()
-            //{
-            //    Routes = new Dictionary<(Type, Type), (Uri, HttpMethod)>()
-            //    {
-            //        { (typeof(TestCommand),typeof(ValueTuple)), (new Uri("http://localhost:8881/micro2/test"), HttpMethod.Post) }
-            //    },
-            //    DefaultHeaders = new Dictionary<string, string[]>()
-            //    {
-            //        { "X-Token", new []{ "159e9497-553a-41ad-88c4-2af0f5faf7f2" } }
-            //    }
-            //});
-
-            //collection.AddTransient<HttpClient>();
-
-            //collection.AddSingleton(new HandlerConfiguration()
-            //{
-            //    Dispatch_ThrowOnFault = true
-            //});
-
-            //ServiceFactory svcFactory = new ServiceFactory(type => provider.GetService(type));
-
-            //MediatR.IMediator mediator = new MediatR.Mediator(svcFactory);
-
-            //collection.AddSingleton<IMediator>(mediator);
-
-            //provider = collection.BuildServiceProvider(new ServiceProviderOptions());
-
-            //HttpReceiverConfiguration config = new HttpReceiverConfiguration()
-            //{
-            //    BaseUris = new[] { "http://localhost:8880/" },
-            //    PathMaps = new System.Collections.Generic.Dictionary<string, (Type, Type)>()
-            //    {
-            //        { "/micro/test", (typeof(TestRequest), typeof(TestResponse)) }
-            //    }
-            //};
-
-            //HttpReceiver receiver = new HttpReceiver(mediator, new System.Net.HttpListener(), config);
-
-            //receiver.Start(CancellationToken.None).GetAwaiter();
-
-            //Console.ReadLine();
-
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -86,14 +34,27 @@ namespace Micro.Net
             Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddLogging(conf =>
+                    {
+                        conf.AddConsole(opts =>
+                        {
+                            opts.LogToStandardErrorThreshold = LogLevel.Trace;
+                        });
+                    });
                     services.UseMicroNet(cfg =>
                     {
                         cfg
-                            .UseHttpReceiver(config =>
+                            .UseFeatherHttpReceiver(config =>
                             {
-                                config.BaseUris.Add("http://localhost:8881/");
-                                config.PathMaps.Add("/micro/test", (typeof(TestRequest), typeof(TestResponse)));
+                                config.BaseUris.Add("http://0.0.0.0:8881");
+                                config.BaseUris.Add("http://::8882");
+                                config.PathMaps.Add(("/micro/test", HttpMethod.Post), (typeof(TestRequest), typeof(TestResponse)));
                             })
+                            //.UseHttpReceiver(config =>
+                            //{
+                            //    config.BaseUris.Add("http://+:8881/");
+                            //    config.PathMaps.Add("/micro/test", (typeof(TestRequest), typeof(TestResponse)));
+                            //})
                             .UseHttpDispatcher(config =>
                             {
                                 config.Routes.Add((typeof(TestCommand), typeof(ValueTuple)), (new Uri("http://localhost:8882/micro2/test"), HttpMethod.Post));

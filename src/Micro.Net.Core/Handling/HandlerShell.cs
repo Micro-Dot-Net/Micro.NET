@@ -33,7 +33,7 @@ namespace Micro.Net.Handling
             new ConcurrentDictionary<(Type, Type), Func<object, HandlerContext, Task<object>>>();
     }
 
-    public class HandlerShell<TMessage> : IPipelineTail<ReceiveContext<TMessage,ValueTuple>,ValueTuple> where TMessage : IContract
+    public class HandlerShell<TMessage> : IPipelineTail<IReceiveContext<TMessage,ValueTuple>,ValueTuple> where TMessage : IContract
     {
         private readonly IServiceProvider _provider;
 
@@ -42,7 +42,7 @@ namespace Micro.Net.Handling
             _provider = provider;
         }
 
-        public async Task<ValueTuple> Handle(ReceiveContext<TMessage, ValueTuple> request)
+        public async Task<ValueTuple> Handle(IReceiveContext<TMessage, ValueTuple> request)
         {
             IHandle<TMessage> svc = _provider.GetService<IHandle<TMessage>>();
 
@@ -67,7 +67,7 @@ namespace Micro.Net.Handling
         }
     }
 
-    public class HandlerShell<TRequest, TResponse> : IPipelineTail<ReceiveContext<TRequest, TResponse>, ValueTuple>
+    public class HandlerShell<TRequest, TResponse> : IPipelineTail<IReceiveContext<TRequest, TResponse>, ValueTuple>
         where TRequest : IContract<TResponse>
     {
         private readonly IServiceProvider _provider;
@@ -79,7 +79,7 @@ namespace Micro.Net.Handling
         }
         
 
-        public async Task<ValueTuple> Handle(ReceiveContext<TRequest, TResponse> request)
+        public async Task<ValueTuple> Handle(IReceiveContext<TRequest, TResponse> request)
         {
             HandlerContext context = new HandlerContext(_provider.GetService<IPipeChannel>(), _provider.GetService<MicroSystemConfiguration>());
 

@@ -5,6 +5,7 @@ namespace Micro.Net.Handling
 {
     public interface IMicroSystemConfiguration
     {
+        string SystemName { get; set; }
         IMicroSystemDispatchConfiguration Dispatch { get; set; }
         Type DefaultSerializer { get; }
         ContextStatus? PipelineFailbackStatus { get; set; }

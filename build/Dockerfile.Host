@@ -1,0 +1,4 @@
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS host
+WORKDIR /app
+COPY src/Micro.Net.Host/bin/Release/net5.0 .
+ENTRYPOINT ["dotnet", "Micro.Net.dll"]

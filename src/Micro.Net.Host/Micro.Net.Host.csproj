@@ -10,15 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Automatonymous" Version="5.1.1" />
-    <PackageReference Include="GreenPipes" Version="4.0.0" />
-    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Micro.Net.Core\Micro.Net.Core.csproj" />
+    <ProjectReference Include="..\Micro.Net.Transport.Feather\Micro.Net.Transport.Feather.csproj" />
     <ProjectReference Include="..\Storage\Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj" />
     <ProjectReference Include="..\Transport\Micro.Net.Transport.Http\Micro.Net.Transport.Http.csproj" />
   </ItemGroup>

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FeatherHttp" Version="0.1.83-alpha.g15473de7d1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Transport\Micro.Net.Transport.Generic\Micro.Net.Transport.Generic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Micro.Net.Abstractions">
+      <HintPath>..\Micro.Net.Abstractions\bin\Debug\netstandard2.0\Micro.Net.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
