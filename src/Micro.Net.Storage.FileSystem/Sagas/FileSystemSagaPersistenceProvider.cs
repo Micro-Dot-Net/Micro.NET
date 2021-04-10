@@ -73,7 +73,7 @@ namespace Micro.Net.Storage.FileSystem
                 ? _serializerCollection.Get(_config.Serializer)
                 : _serializerCollection.Default;
 
-            _fs ??= FileExtensions.WaitForFile(file, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            _fs = _fs ?? FileExtensions.WaitForFile(file, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
 
             _fs.Seek(0, SeekOrigin.Begin);
 
@@ -107,7 +107,7 @@ namespace Micro.Net.Storage.FileSystem
                 ? _serializerCollection.Get(_config.Serializer)
                 : _serializerCollection.Default;
 
-            _fs ??= FileExtensions.WaitForFile(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            _fs = _fs ?? FileExtensions.WaitForFile(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
 
             _fs.Seek(0, SeekOrigin.Begin);
 

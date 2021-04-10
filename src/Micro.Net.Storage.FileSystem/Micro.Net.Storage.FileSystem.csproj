@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>LGPL-2.0-only</PackageLicenseExpression>
+    <Authors>Micro-Dot-Net</Authors>
+    <Company>Micro-Dot-Net</Company>
+    <Product>Micro.NET</Product>
   </PropertyGroup>
 
   <ItemGroup>
