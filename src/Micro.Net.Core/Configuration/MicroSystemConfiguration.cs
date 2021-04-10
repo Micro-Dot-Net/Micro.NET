@@ -15,6 +15,7 @@ namespace Micro.Net.Handling
             PipelineFailbackStatus = ContextStatus.Faulted;
         }
 
+        public string SystemName { get; set; } = Environment.MachineName;
         public IMicroSystemDispatchConfiguration Dispatch { get; set; }
         public Type DefaultSerializer { get; private set; }
         public ContextStatus? PipelineFailbackStatus { get; set; }

@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Transport.Feather
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Transport.KestrelHttp", "Micro.Net.Transport.KestrelHttp\Micro.Net.Transport.KestrelHttp.csproj", "{4E30385F-3A8D-46B5-84C0-A9FB20C7668D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro.Net.Abstractions", "Micro.Net.Abstractions\Micro.Net.Abstractions.csproj", "{4A36B5F1-0D8C-4EC6-A48B-9909D36FFBAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{4E30385F-3A8D-46B5-84C0-A9FB20C7668D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E30385F-3A8D-46B5-84C0-A9FB20C7668D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E30385F-3A8D-46B5-84C0-A9FB20C7668D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A36B5F1-0D8C-4EC6-A48B-9909D36FFBAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A36B5F1-0D8C-4EC6-A48B-9909D36FFBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A36B5F1-0D8C-4EC6-A48B-9909D36FFBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A36B5F1-0D8C-4EC6-A48B-9909D36FFBAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
