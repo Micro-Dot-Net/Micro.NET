@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Micro.Net.Core\Micro.Net.Core.csproj" />
-    <ProjectReference Include="..\Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj" />
-    <ProjectReference Include="..\Micro.Net.Transport.Http\Micro.Net.Transport.Http.csproj" />
+    <ProjectReference Include="..\Storage\Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj" />
+    <ProjectReference Include="..\Transport\Micro.Net.Transport.Http\Micro.Net.Transport.Http.csproj" />
   </ItemGroup>
 </Project>

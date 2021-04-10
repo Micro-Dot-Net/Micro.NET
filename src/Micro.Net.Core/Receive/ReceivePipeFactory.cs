@@ -18,7 +18,7 @@ namespace Micro.Net.Core.Receive
 
         public ReceiveContextDelegate<TRequest, TResponse> Create<TRequest, TResponse>()
         {
-            return async (ReceiveContext<TRequest, TResponse> context) =>
+            return async (IReceiveContext<TRequest, TResponse> context) =>
             {
                 await _channel.Handle(context);
             };

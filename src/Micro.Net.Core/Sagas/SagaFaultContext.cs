@@ -2,7 +2,7 @@
 
 namespace Micro.Net.Abstractions.Sagas
 {
-    public class SagaFaultContext
+    public class SagaFaultContext : ISagaFaultContext
     {
         public Exception Ex { get; protected set; }
     }

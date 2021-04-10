@@ -6,7 +6,7 @@ using Micro.Net.Serializing;
 
 namespace Micro.Net.Handling
 {
-    public class MicroSystemConfiguration
+    public class MicroSystemConfiguration : IMicroSystemConfiguration
     {
         internal MicroSystemConfiguration()
         {
@@ -15,7 +15,7 @@ namespace Micro.Net.Handling
             PipelineFailbackStatus = ContextStatus.Faulted;
         }
 
-        public MicroSystemDispatchConfiguration Dispatch { get; set; }
+        public IMicroSystemDispatchConfiguration Dispatch { get; set; }
         public Type DefaultSerializer { get; private set; }
         public ContextStatus? PipelineFailbackStatus { get; set; }
 
@@ -30,7 +30,7 @@ namespace Micro.Net.Handling
             return !_ex.Any();
         }
 
-        public MicroSystemConfiguration SetDefaultSerializer<TSerializer>() where TSerializer : class, ISerializer
+        public IMicroSystemConfiguration SetDefaultSerializer<TSerializer>() where TSerializer : class, ISerializer
         {
             DefaultSerializer = typeof(TSerializer);
 

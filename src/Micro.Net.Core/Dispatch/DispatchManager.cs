@@ -17,7 +17,7 @@ namespace Micro.Net.Dispatch
             _dispatchers = dispatchers;
         }
 
-        public async Task Handle(DispatchManagementContext<TRequest, TResponse> request, CancellationToken cancellationToken)
+        public async Task Handle(IDispatchManagementContext<TRequest, TResponse> request, CancellationToken cancellationToken)
         {
             IDispatcher dispatcher = null;
 
@@ -50,7 +50,7 @@ namespace Micro.Net.Dispatch
             }
         }
 
-        public async Task<ValueTuple> Handle(DispatchManagementContext<TRequest, TResponse> request)
+        public async Task<ValueTuple> Handle(IDispatchManagementContext<TRequest, TResponse> request)
         {
             await Handle(request, CancellationToken.None);
 

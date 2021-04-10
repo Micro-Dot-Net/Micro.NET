@@ -7,7 +7,7 @@ namespace Micro.Net.Test
 {
     public class TestHandler : IHandle<TestRequest,TestResponse>
     {
-        public async Task<TestResponse> Handle(TestRequest message, HandlerContext context)
+        public async Task<TestResponse> Handle(TestRequest message, IHandlerContext context)
         {
             TestResponse response = new TestResponse()
             {

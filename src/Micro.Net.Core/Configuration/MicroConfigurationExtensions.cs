@@ -8,7 +8,7 @@ namespace Micro.Net.Core.Configuration
 {
     public static class MicroConfigurationExtensions
     {
-        public static IServiceCollection UseMicroNet(this IServiceCollection collection, Action<MicroConfigurer> configureAction)
+        public static IServiceCollection UseMicroNet(this IServiceCollection collection, Action<IMicroConfigurer> configureAction)
         {
             MicroConfigurer cfgr = new MicroConfigurer();
 

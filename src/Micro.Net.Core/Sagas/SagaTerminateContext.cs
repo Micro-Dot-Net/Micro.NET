@@ -2,13 +2,13 @@
 
 namespace Micro.Net.Abstractions.Sagas
 {
-    public abstract class SagaTerminateContext
+    public class SagaTerminateContext : ISagaTerminateContext
     {
         public string Reason { get; protected set; }
         public IReadOnlyDictionary<string, object> AuxiliaryData { get; protected set; }
     }
 
-    public abstract class SagaTerminateContext<TData> : SagaTerminateContext
+    public class SagaTerminateContext<TData> : SagaTerminateContext, ISagaTerminateContext<TData>
     {
         public TData Data { get; protected set; }
     }

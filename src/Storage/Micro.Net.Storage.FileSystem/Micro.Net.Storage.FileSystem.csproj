@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>LGPL-2.0-only</PackageLicenseExpression>
+    <Authors>Micro-Dot-Net</Authors>
+    <Company>Micro-Dot-Net</Company>
+    <Product>Micro.NET</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
+    <PackageReference Include="SmartFormat.NET" Version="2.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Micro.Net.Abstractions\Micro.Net.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Micro.Net.Core\Micro.Net.Core.csproj" />
+  </ItemGroup>
+
+</Project>

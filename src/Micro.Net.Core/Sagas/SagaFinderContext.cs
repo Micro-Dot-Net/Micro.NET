@@ -3,11 +3,6 @@ using System.Collections.Generic;
 
 namespace Micro.Net.Abstractions.Sagas
 {
-    public interface ISagaFinderContext : IFaultable, IResolvable, ITerminable
-    {
-
-    }
-
     public class SagaFinderContext : ISagaFinderContext
     {
         public bool IsFaulted { get; }

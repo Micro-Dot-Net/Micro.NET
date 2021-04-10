@@ -15,9 +15,9 @@ using Micro.Net.Handling;
 using Micro.Net.Receive;
 using Micro.Net.Storage.FileSystem;
 using Micro.Net.Test;
-using Micro.Net.Transport.Http;
 using Newtonsoft.Json;
 using JsonSerializer = Micro.Net.Serializing.JsonSerializer;
+using Micro.Net.Transport.Http;
 
 namespace Micro.Net
 {

@@ -5,7 +5,7 @@ using Micro.Net.Receive;
 
 namespace Micro.Net.Dispatch
 {
-    public class DispatchManagementContext<TRequest, TResponse> : DispatchContext<TRequest,TResponse> where TRequest : IContract<TResponse>
+    public class DispatchManagementContext<TRequest, TResponse> : DispatchContext<TRequest,TResponse>, IDispatchManagementContext<TRequest,TResponse> where TRequest : IContract<TResponse>
     {
         public DispatchOptions Options { get; set; }
 

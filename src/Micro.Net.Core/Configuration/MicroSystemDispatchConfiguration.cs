@@ -1,6 +1,6 @@
 namespace Micro.Net.Handling
 {
-    public class MicroSystemDispatchConfiguration
+    public class MicroSystemDispatchConfiguration : IMicroSystemDispatchConfiguration
     {
         public bool? ThrowOnFault { get; set; }
     }
