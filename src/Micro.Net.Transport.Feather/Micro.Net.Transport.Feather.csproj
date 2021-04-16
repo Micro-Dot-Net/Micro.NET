@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>LGPL-2.0-only</PackageLicenseExpression>
+    <Authors>Micro-Dot-Net</Authors>
+    <Company>Micro-Dot-Net</Company>
+    <Product>Micro.NET</Product>
+    <PackageVersion>1.0.0</PackageVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <PackageProjectUrl>https://github.com/Micro-Dot-Net/Micro.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Micro-Dot-Net/Micro.NET</RepositoryUrl>
+    <Description>HTTP-based (FeatherHttp) storage component for Micro.NET</Description>
   </PropertyGroup>
 
   <ItemGroup>

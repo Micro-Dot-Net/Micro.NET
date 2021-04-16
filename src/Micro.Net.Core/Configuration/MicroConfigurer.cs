@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Micro.Net.Abstractions;
 using Micro.Net.Abstractions.Storage;
 using Micro.Net.Core.Abstractions.Management;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Newtonsoft.Json;
 
+[assembly: InternalsVisibleTo("Micro.Net.Host")]
 namespace Micro.Net.Core.Configuration
 {
     public class MicroConfigurer : IMicroConfigurer

@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Micro.Net.Abstractions" Version="1.0.0" />
+    <PackageReference Include="Micro.Net.Core" Version="1.0.0" />
+    <PackageReference Include="Micro.Net.Transport.Http" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Storage\Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj" />
+    <ProjectReference Include="..\Transport\Micro.Net.Transport.Http\Micro.Net.Transport.Http.csproj" />
+  </ItemGroup>
+
+</Project>
