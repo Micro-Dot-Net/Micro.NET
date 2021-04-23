@@ -5,14 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Micro.Net.Abstractions" Version="1.0.0" />
-    <PackageReference Include="Micro.Net.Core" Version="1.0.0" />
-    <PackageReference Include="Micro.Net.Transport.Http" Version="1.0.0" />
+    <PackageReference Include="Micro.Net.Abstractions" Version="1.0.28" />
+    <PackageReference Include="Micro.Net.Core" Version="1.0.28" />
+    <PackageReference Include="Micro.Net.Storage.FileSystem" Version="1.0.28" />
+    <PackageReference Include="Micro.Net.Transport.Http" Version="1.0.28" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Storage\Micro.Net.Storage.FileSystem\Micro.Net.Storage.FileSystem.csproj" />
-    <ProjectReference Include="..\Transport\Micro.Net.Transport.Http\Micro.Net.Transport.Http.csproj" />
-  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="docker build -f $(ProjectDir)/Dockerfile --build-arg buildPath=$(OutDir) ." />
+  </Target>
 
 </Project>

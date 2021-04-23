@@ -15,7 +15,7 @@ using JsonSerializer = Micro.Net.Serializing.JsonSerializer;
 
 namespace Micro.Net.Example
 {
-    public class MicroserviceConfigurable : IMicroserviceConfigurable
+    public class ExampleMicroserviceConfigurable : IMicroserviceConfigurable
     {
         public void Configure(IMicroConfigurer cfg, IConfiguration configuration)
         {

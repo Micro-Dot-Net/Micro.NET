@@ -28,4 +28,8 @@
     <ProjectReference Include="..\Micro.Net.Abstractions\Micro.Net.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Support\" />
+  </ItemGroup>
+
 </Project>

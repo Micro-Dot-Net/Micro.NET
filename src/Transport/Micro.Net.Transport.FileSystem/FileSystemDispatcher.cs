@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Transport;
 using Micro.Net.Dispatch;
 using Micro.Net.Extensions;
 
@@ -34,7 +35,7 @@ namespace Micro.Net.Transport.FileSystem
             Envelope<TRequest> envelope = new Envelope<TRequest>();
 
             envelope.Headers = messageContext.Request.Headers;
-            envelope.Request = messageContext.Request.Payload;
+            envelope.Message = messageContext.Request.Payload;
 
             string fileName = $"{DateTime.Now.ToFileTimeUtc()}_{Guid.NewGuid().EncodeBase64String()}.micro";
 

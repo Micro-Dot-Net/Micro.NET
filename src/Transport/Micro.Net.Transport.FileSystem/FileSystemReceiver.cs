@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Transactions;
 using ChinhDo.Transactions;
 using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Transport;
 using Micro.Net.Core.Abstractions.Pipeline;
 using Micro.Net.Exceptions;
 using Micro.Net.Receive;
@@ -120,7 +121,7 @@ namespace Micro.Net.Transport.FileSystem
                 throw MicroConfigurationException.MissingRegistrations(new Dictionary<string, string> { {$"Factory:{nameof(IReceiveContext<TRequest,TResponse>)}", nameof(IContextSubFactory)} });
             }
 
-            context.Request.Payload = message.Request;
+            context.Request.Payload = message.Message;
             context.Request.Headers = message.Headers;
 
             try
@@ -170,7 +171,7 @@ namespace Micro.Net.Transport.FileSystem
                     Envelope<TResponse> envelope = new Envelope<TResponse>()
                     {
                         Headers = context.Response.Headers,
-                        Request = context.Response.Payload
+                        Message = context.Response.Payload
                     };
 
                     using (FileStream fs = File.Create(Path.Combine(msgConfig.ResponseDir, name)))
