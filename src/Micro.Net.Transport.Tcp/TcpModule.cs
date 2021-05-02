@@ -16,6 +16,8 @@ namespace Micro.Net.Transport.Tcp
 {
     public class TcpModule
     {
+        public const string MESSAGE_ID_HEADER = "Message-Id";
+
         private readonly IPEndPoint _endpoint;
         private readonly ModuleMode _mode;
         private readonly ModuleBehavior.Connection _connBehavior;
@@ -322,6 +324,22 @@ namespace Micro.Net.Transport.Tcp
         {
             public JObject Message { get; init; }
             public Action<JObject> Reply { get; init; }
+        }
+    }
+
+    public class TcpReceiverModule : TcpModule
+    {
+        public TcpReceiverModule(IPEndPoint endpoint, JsonSerializer serializer, SecureTcpOptions secureOptions) 
+            : base(endpoint, ModuleMode.Receive, ModuleBehavior.Connection.OpenPerRequest, ModuleBehavior.Response.RequireAck, serializer, secureOptions)
+        {
+        }
+    }
+
+    public class TcpDispatcherModule : TcpModule
+    {
+        public TcpDispatcherModule(IPEndPoint endpoint, JsonSerializer serializer, SecureTcpOptions secureOptions)
+            : base(endpoint, ModuleMode.Dispatch, ModuleBehavior.Connection.OpenPerRequest, ModuleBehavior.Response.RequireAck, serializer, secureOptions)
+        {
         }
     }
 }
