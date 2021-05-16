@@ -53,7 +53,7 @@ namespace Micro.Net.Handling
                 throw ex;
             }
         }
-
+        
         public async Task RequestTimeout<TTimeout>(TTimeout timeout, OneOf<Instant,Duration> delay, Action<TimeoutOptions> ctxAction = null, Action<IDictionary<string, string>> headerAction = null) where TTimeout : ITimeout
         {
             ITimeoutContext<TTimeout> timeoutContext = new TimeoutContext<TTimeout>()
