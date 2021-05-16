@@ -1,9 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Timeout;
 using Micro.Net.Core.Abstractions.Pipeline;
+using Micro.Net.Core.Timeout;
 using Micro.Net.Dispatch;
 using Micro.Net.Exceptions;
+using Micro.Net.Receive;
+using NodaTime;
+using OneOf;
 
 namespace Micro.Net.Handling
 {
@@ -45,6 +51,31 @@ namespace Micro.Net.Handling
             if (context.TryGetFault(out Exception ex) && (throwOnFault ?? _config.Dispatch.ThrowOnFault ?? false))
             {
                 throw ex;
+            }
+        }
+
+        public async Task RequestTimeout<TTimeout>(TTimeout timeout, OneOf<Instant,Duration> delay, Action<TimeoutOptions> ctxAction = null, Action<IDictionary<string, string>> headerAction = null) where TTimeout : ITimeout
+        {
+            ITimeoutContext<TTimeout> timeoutContext = new TimeoutContext<TTimeout>()
+            {
+                Delay = delay,
+                Options = new TimeoutOptions(),
+                Request = new RequestContext<TTimeout>()
+                {
+                    Headers = new Dictionary<string, string>(),
+                    Payload = timeout
+                }
+            };
+
+            ctxAction?.Invoke(timeoutContext.Options);
+
+            headerAction?.Invoke(timeoutContext.Request.Headers);
+
+            await _pipeChannel.Handle(timeoutContext);
+
+            if (!timeoutContext.IsResolved)
+            {
+                //TODO: Throw if pipetail wasn't found
             }
         }
     }

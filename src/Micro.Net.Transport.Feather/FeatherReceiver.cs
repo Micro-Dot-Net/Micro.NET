@@ -86,7 +86,7 @@ namespace Micro.Net.Transport.Feather
 
                 foreach (string key in httpContext.Request.Headers.Keys)
                 {
-                    context.Request.Headers[key] = httpContext.Request.Headers[key].ToArray();
+                    context.Request.Headers[key] = httpContext.Request.Headers[key];
                 }
 
                 if (httpContext.Request.ContentLength <= 0)
@@ -141,7 +141,7 @@ namespace Micro.Net.Transport.Feather
                 {
                     await base.Dispatch(context);
 
-                    foreach (KeyValuePair<string, string[]> header in context.Response.Headers)
+                    foreach (KeyValuePair<string, string> header in context.Response.Headers)
                     {
                         httpContext.Response.Headers.Add(header.Key, header.Value);
                     }

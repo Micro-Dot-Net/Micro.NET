@@ -31,12 +31,12 @@ namespace Micro.Net.Receive
                 Destination = new Uri("null://"),
                 Request = new RequestContext<TRequest>()
                 {
-                    Headers = envelope?.Headers.ToDictionary(x => x.Key, y => y.Value) ?? new Dictionary<string, string[]>(),
+                    Headers = envelope?.Headers.ToDictionary(x => x.Key, y => y.Value) ?? new Dictionary<string, string>(),
                     Payload = envelope != null ? envelope.Message ?? default : default
                 },
                 Response = new ResponseContext<TResponse>()
                 {
-                    Headers = new Dictionary<string, string[]>(),
+                    Headers = new Dictionary<string, string>(),
                     Payload = default
                 },
                 Status = ContextStatus.Live

@@ -47,7 +47,11 @@ namespace Micro.Net.Transport.Tcp
 
             TcpDispatcherModule module = _modules[(reqType, respType)];
 
-            Envelope<TRequest> requestEnvelope = new Envelope<TRequest>() { };
+            Envelope<TRequest> requestEnvelope = new Envelope<TRequest>()
+            {
+                Message = messageContext.Request.Payload,
+                Headers = messageContext.Request.Headers
+            };
 
             TaskCompletionSource<JObject> responseSource =
                 new TaskCompletionSource<JObject>(TaskCreationOptions.LongRunning | TaskCreationOptions.AttachedToParent);

@@ -14,7 +14,12 @@ namespace Micro.Net.Abstractions.Transport
         [IgnoreDataMember]
         public Type MessageType { get; }
 
-        public Dictionary<string, string[]> Headers { get; set; }
+        public Dictionary<string, string> Headers { get; set; }
+        public string MessageId
+        {
+            get => Headers["MessageId"];
+            set => Headers["MessageId"] = value;
+        }
     }
 
     public class Envelope<TValue> : Envelope
