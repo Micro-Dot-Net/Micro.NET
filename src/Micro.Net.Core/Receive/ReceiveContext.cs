@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Micro.Net.Abstractions;
+using Micro.Net.Abstractions.Transport;
 
 namespace Micro.Net.Receive
 {
@@ -16,7 +18,12 @@ namespace Micro.Net.Receive
 
     public static class ReceiveContext
     {
-        public static ReceiveContext<TRequest, TResponse> Create<TRequest, TResponse>()
+        public static IReceiveContext<TRequest, TResponse> Create<TRequest, TResponse>()
+        {
+            return Create<TRequest, TResponse>(null);
+        }
+
+        public static IReceiveContext<TRequest, TResponse> Create<TRequest, TResponse>(Envelope<TRequest> envelope)
         {
             return new ReceiveContext<TRequest, TResponse>()
             {
@@ -24,12 +31,12 @@ namespace Micro.Net.Receive
                 Destination = new Uri("null://"),
                 Request = new RequestContext<TRequest>()
                 {
-                    Headers = new Dictionary<string, string[]>(),
-                    Payload = default
+                    Headers = envelope?.Headers.ToDictionary(x => x.Key, y => y.Value) ?? new Dictionary<string, string>(),
+                    Payload = envelope != null ? envelope.Message ?? default : default
                 },
                 Response = new ResponseContext<TResponse>()
                 {
-                    Headers = new Dictionary<string, string[]>(),
+                    Headers = new Dictionary<string, string>(),
                     Payload = default
                 },
                 Status = ContextStatus.Live

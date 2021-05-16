@@ -34,7 +34,7 @@ namespace Micro.Net.Transport.Http
         {
             cfgr.AddDispatcher<HttpDispatcher>();
 
-            HttpDispatcherConfiguration config = new HttpDispatcherConfiguration() { DefaultHeaders = new Dictionary<string, string[]>(), Routes = new Dictionary<(Type, Type), (Uri, HttpMethod)>() };
+            HttpDispatcherConfiguration config = new HttpDispatcherConfiguration() { DefaultHeaders = new Dictionary<string, string>(), Routes = new Dictionary<(Type, Type), (Uri, HttpMethod)>() };
 
             dsptCfg(config);
 

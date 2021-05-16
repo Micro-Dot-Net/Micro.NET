@@ -18,26 +18,22 @@ namespace Micro.Net.Dispatch
                 Source = new Uri("null://"),
                 Request = new RequestContext<TRequest>()
                 {
-                    Headers = new Dictionary<string, string[]>()
+                    Headers = new Dictionary<string, string>()
                     {
-                        { "X-RequestType", new []
-                            {
-                                typeof(TRequest).AssemblyQualifiedName
-                            }
-                        },
+                        { "X-RequestType", typeof(TRequest).AssemblyQualifiedName },
                     },
                     Payload = request
                 },
                 Response = new ResponseContext<TResponse>()
                 {
-                    Headers = new Dictionary<string, string[]>(),
+                    Headers = new Dictionary<string, string>(),
                     Payload = default
                 }
             };
 
             if (typeof(TResponse) != typeof(ValueTuple))
             {
-                context.Request.Headers.Add("X-ResponseType", new[] { typeof(TResponse).AssemblyQualifiedName });
+                context.Request.Headers.Add("X-ResponseType", typeof(TResponse).AssemblyQualifiedName );
             }
 
             return context;

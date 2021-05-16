@@ -40,12 +40,12 @@ namespace Micro.Net.Transport.Http
 
             request.Headers.Add("Source", $"machine://{Environment.MachineName}");
 
-            foreach (KeyValuePair<string, string[]> keyValuePair in _config.DefaultHeaders)
+            foreach (KeyValuePair<string, string> keyValuePair in _config.DefaultHeaders)
             {
                 request.Headers.Add(keyValuePair.Key, keyValuePair.Value);
             }
 
-            foreach (KeyValuePair<string, string[]> header in messageContext.Request.Headers)
+            foreach (KeyValuePair<string, string> header in messageContext.Request.Headers)
             {
                 request.Headers.Add(header.Key, header.Value);
             }
